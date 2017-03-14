@@ -14,12 +14,12 @@ Stats530 Computer vision project
 3. Optimizing the machine learning algorithm for our specific problem.
 
 ### List of functionalities we will need:
-1. Data Labeler : Display images--> allows user to count number of cells and added it to the image meta data/table. (generate labeled data to train model)
-2. Model Trainer - train model on half of our data
-3. Model Test - test model on the other half of our data
-4. Application - Input image --> outputs cell count (only if model has a high accuracy)
+- [ ] Data Labeler : Display images--> allows user to count number of cells and added it to the image meta data/table. (generate labeled data to train model)
+- [ ] Model Trainer - train model on half of our data
+- [ ] Model Test - test model on the other half of our data
+- [ ] Application - Input image --> outputs cell count (only if model has a high accuracy)
 
-Libraries:
+### Libraries:
 - Keras (https://github.com/fchollet/keras)
 - Tensorflow (https://www.tensorflow.org)
 - OpenCV (http://opencv.org)
