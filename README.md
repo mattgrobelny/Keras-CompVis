@@ -19,8 +19,14 @@ Stats530 Computer vision project
 - [ ] Model Test - test model on the other half of our data
 - [ ] Application - Input image --> outputs cell count (only if model has a high accuracy)
 
+### Data  
+Need to find a source for images which have features which can be easily identified
+
 ### Libraries:
 - Keras (https://github.com/fchollet/keras)
 - Tensorflow (https://www.tensorflow.org)
 - OpenCV (http://opencv.org)
 - Scikit-learn (http://scikit-learn.org/stable/)
+
+### Keras guide
+https://keras.io/getting-started/sequential-model-guide/
