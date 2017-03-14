@@ -28,5 +28,8 @@ Need to find a source for images which have features which can be easily identif
 - OpenCV (http://opencv.org)
 - Scikit-learn (http://scikit-learn.org/stable/)
 
-### Keras guide
+### Keras guides
 https://keras.io/getting-started/sequential-model-guide/
+
+Small images training
+https://github.com/fchollet/keras/blob/master/examples/cifar10_cnn.py
