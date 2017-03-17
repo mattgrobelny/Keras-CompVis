@@ -2,6 +2,8 @@
 Stats530 Computer vision project
 
 ## Goals:
+Train a CNN to count cells from microscope images. 
+
 ### There are several things I think we should determine:
 1. Exactly what do we want to count/identify from an image.
 2. Determine what data would be easiest to use.
