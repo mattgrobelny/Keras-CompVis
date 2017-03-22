@@ -15,6 +15,9 @@ Train a CNN to count cells from microscope images.
 2. Labeling the data
 3. Optimizing the machine learning algorithm for our specific problem.
 
+### CNN vs NN :
+- http://stats.stackexchange.com/questions/114385/what-is-the-difference-between-convolutional-neural-networks-restricted-boltzma
+
 ### List of functionalities we will need:
 - [ ] Data Labeler : Display images--> allows user to count number of cells and added it to the image meta data/table. (generate labeled data to train model)
 - [ ] Model Trainer - train model on half of our data
