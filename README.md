@@ -17,6 +17,7 @@ Train a CNN to count cells from microscope images.
 
 ### CNN vs NN :
 - http://stats.stackexchange.com/questions/114385/what-is-the-difference-between-convolutional-neural-networks-restricted-boltzma
+- [CS231n Convolutional Neural Networks for Visual Recognition](http://cs231n.github.io/convolutional-networks/)
 
 ### List of functionalities we will need:
 - [ ] Data Labeler : Display images--> allows user to count number of cells and added it to the image meta data/table. (generate labeled data to train model)
