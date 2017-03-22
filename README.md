@@ -44,5 +44,8 @@ For training, we additionally apply a series of random distortions to artificial
 ### Keras guides
 https://keras.io/getting-started/sequential-model-guide/
 
+### Tensor Flow guides:
+- [A Guide to TF Layers: Building a Convolutional Neural Network](https://www.tensorflow.org/tutorials/layers)
+
 Small images training
 https://github.com/fchollet/keras/blob/master/examples/cifar10_cnn.py
