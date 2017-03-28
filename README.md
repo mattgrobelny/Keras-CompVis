@@ -30,8 +30,8 @@ Need to find a source for images which have features which can be easily identif
 1. https://data.broadinstitute.org/bbbc/image_sets.html
 2. http://www.cs.tut.fi/sgn/csb/simcep/benchmark/ (Benchmark images)
 
-From: https://www.tensorflow.org/tutorials/deep_cnn
-For training, we additionally apply a series of random distortions to artificially increase the data set size:
+From: https://www.tensorflow.org/tutorials/deep_cnn  
+For training, we additionally apply a series of random distortions to artificially increase the data set size:  
 - Randomly flip the image from left to right.
 - Randomly distort the image brightness.
 - Randomly distort the image contrast.
