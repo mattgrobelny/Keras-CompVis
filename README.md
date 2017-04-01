@@ -32,6 +32,7 @@ http://www.cs.tau.ac.il/~wolf/papers/learning-count-cnn.pdf
 Need to find a source for images which have features which can be easily identified
 1. https://data.broadinstitute.org/bbbc/image_sets.html
 2. http://www.cs.tut.fi/sgn/csb/simcep/benchmark/ (Benchmark images)
+3. Simulated cell images: https://data.broadinstitute.org/bbbc/BBBC005/
 
 From: https://www.tensorflow.org/tutorials/deep_cnn  
 For training, we additionally apply a series of random distortions to artificially increase the data set size:  
