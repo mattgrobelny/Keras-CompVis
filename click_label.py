@@ -30,16 +30,17 @@ glob_dir = image_location + jpg
 image_list = glob.glob(image_location + jpg)
 # print image_list
 
-try:
-    out_fh = open(location_output + outfile, 'r')
-    lineList = out_fh.readlines()
-    out_fh.close()
+# try:
+out_fh = open(location_output + outfile, 'r')
+lineList = out_fh.readlines()
+out_fh.close()
 
-    done_files = []
-    for line in lineList:
-        done_files.append(line.split(',')[0])
-except IOError:
-    done_files = []
+done_files = []
+for line in lineList:
+    done_files.append(line.split(',')[0])
+print done_files
+# except IOError:
+#     done_files = []
 
 
 class Pixel_locator():
@@ -94,7 +95,7 @@ for image in image_list:
     image_name = image.split('/')[-1][0:-4]
     print "Working on:", image_name, "--- %s" % (float(zero + len(done_files)) / float(len(image_list)) * 100), '% done for image set'
 
-    if image not in done_files:
+    if image_name not in done_files:
         cell_count_GT = int(image_name.split('_')[2].split('C')[1])
         click = Pixel_locator()
         click.fname = image
