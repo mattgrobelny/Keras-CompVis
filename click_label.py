@@ -1,13 +1,25 @@
 from PIL import Image
 import glob
-import cv2
+# import cv2
 import matplotlib.pyplot as plt
 from matplotlib.patches import Ellipse
 from pylab import *
 import sys
 
-# Dir for images
-image_location = '/Users/matt/github/Keras-CompVis/data/one_cell/'
+# Dir for cell images - change for your directory
+# CHANGE ME TO RUN SCRIPT
+image_location = '/Users/matt/github/Keras-CompVis/data/rand_200/'
+
+# Filename for cell locations change for image set you are working on
+# CHANGE ME TO RUN SCRIPT
+outfile = 'Cell_locations_200.csv'
+# outfile = 'Cell_locations_500.csv'
+# outfile = 'Cell_locations_1000.csv'
+
+# output location - change for your directory
+# CHANGE ME TO RUN SCRIPT
+location_output = '/Users/matt/github/Keras-CompVis/data/cell_locations_out/'
+
 jpg = '*.TIF'
 
 # string for glob to produce list of files only .jpgs
@@ -18,19 +30,16 @@ glob_dir = image_location + jpg
 image_list = glob.glob(image_location + jpg)
 # print image_list
 
-# Filename for cell locations
-outfile = 'Cell_locations.csv'
+try:
+    out_fh = open(location_output + outfile, 'r')
+    lineList = out_fh.readlines()
+    out_fh.close()
 
-# output location
-location_output = '/Users/matt/github/Keras-CompVis/data/one_cell_patches/'
-
-out_fh = open(location_output + outfile, 'r')
-lineList = out_fh.readlines()
-out_fh.close()
-
-done_files = []
-for line in lineList:
-    done_files.append(line.split(',')[0])
+    done_files = []
+    for line in lineList:
+        done_files.append(line.split(',')[0])
+except IOError:
+    done_files = []
 
 
 class Pixel_locator():
@@ -54,7 +63,7 @@ class Pixel_locator():
         width, height = self.img.size
         fig = plt.figure()
         ax = fig.add_subplot(111)
-        imshow(self.img)
+        imshow(self.img, cmap='gray')
         print "Number of Clicks Left:", self.click_left
 
         # Trigger click detection
@@ -63,9 +72,9 @@ class Pixel_locator():
 
         # Annotate image with number of cells left to click
         ax.annotate(str(self.click_left), xy=(
-            width * .9, height / 3), size=100, weight='bold', alpha=0.5)
+            width, height / 3), size=30, weight='bold', alpha=0.9, color='red')
         ax.annotate('Cells Left:', xy=(
-            width * .8, height / 5), size=10, weight='bold', alpha=0.5)
+            width, height / 4), size=10, weight='bold', alpha=0.9, color='red')
 
         # Displace circle on clicked cells for a give image
         for shape in self.point_list:
@@ -82,12 +91,11 @@ zero = 1
 
 cell_locations = []
 for image in image_list:
+    image_name = image.split('/')[-1][0:-4]
+    print "Working on:", image_name, "--- %s" % (float(zero + len(done_files)) / float(len(image_list)) * 100), '% done for image set'
+
     if image not in done_files:
-        image_name = image.split('/')[-1][0:-4]
         cell_count_GT = int(image_name.split('_')[2].split('C')[1])
-
-        print "Working on:", image_name, "--- %s" % (zero / len(image_list) * 100), '% done'
-
         click = Pixel_locator()
         click.fname = image
         click.click_left = cell_count_GT
@@ -95,6 +103,7 @@ for image in image_list:
         while click.click_left > 0:
             count = click.getCoord()
             click.point_list.append(count)
+            plt.close()
             print count
         else:
             cell_locations.append([image, click.point_list])
@@ -105,6 +114,7 @@ for image in image_list:
             # Write the Image name and location of cells to file
             out_fh.write("%s, %s\n" % (image_name, click.point_list))
             out_fh.close()
+            print "Saved Data"
     else:
+        zero += 1
         continue
-# print cell_locations
