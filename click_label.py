@@ -81,7 +81,7 @@ class Pixel_locator():
 zero = 1
 
 cell_locations = []
-for image in image_list[1:10]:
+for image in image_list:
     if image not in done_files:
         image_name = image.split('/')[-1][0:-4]
         cell_count_GT = int(image_name.split('_')[2].split('C')[1])
@@ -101,7 +101,9 @@ for image in image_list[1:10]:
 
             # open outfile in append mode
             out_fh = open(location_output + outfile, 'a')
-            out_fh.write("%s, %s\n" % (image, click.point_list))
+
+            # Write the Image name and location of cells to file
+            out_fh.write("%s, %s\n" % (image_name, click.point_list))
             out_fh.close()
     else:
         continue
