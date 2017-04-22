@@ -126,6 +126,7 @@ for image in image_list:
             out_fh.write("%s, %s\n" % (image_name, click.point_list))
             out_fh.close()
             print "Saved Data"
+            zero += 1
     else:
         zero += 1
         continue
