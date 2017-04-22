@@ -56,6 +56,14 @@ class Pixel_locator():
         self.point = (int(click.xdata), int(click.ydata))
         self.click_left -= 1
         return self.point
+    # point collection fucntion
+
+    # def __deleteLast__(self, botton):
+    #     if self.event.button == 'd':
+    #         self.point_list.pop()
+    #         self.click_left += 1
+    #     else:
+    #         returnd
 
     # point collections and image display function
     def getCoord(self):
@@ -69,6 +77,9 @@ class Pixel_locator():
         # Trigger click detection
         self.cid_press = fig.canvas.mpl_connect(
             'button_press_event', self.__onclick__)
+        # # Trigger click detection
+        # self.cid_key = fig.canvas.mpl_connect(
+        #     'key_press_event', self.__deleteLast__)
 
         # Annotate image with number of cells left to click
         ax.annotate(str(self.click_left), xy=(
