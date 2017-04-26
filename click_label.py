@@ -20,6 +20,11 @@ outfile = 'Cell_locations_200.csv'
 # CHANGE ME TO RUN SCRIPT
 location_output = '/Users/matt/github/Keras-CompVis/data/cell_locations_out/'
 
+# CHANGE ME TO RUN SCRIPT
+# splitter = '\' # Windows
+splitter = '/'  # Mac or UNIX machine
+
+
 jpg = '*.TIF'
 
 # string for glob to produce list of files only .jpgs
@@ -102,10 +107,15 @@ zero = 1
 
 cell_locations = []
 for image in image_list:
-    image_name = image.split('/')[-1][0:-4]
+    image_name = image.split(splitter)[-1][0:-4]
 
     if image_name not in done_files:
         print "Working on:", image_name, "--- %s" % (float(zero + len(done_files)) / float(len(image_list)) * 100), '% done for image set'
+        test = image_name.split('_')[2]
+        print test
+        test2 = test.split('C')[1]
+        print test2
+        print image_name.split('_')[2].split('C')[1]
         cell_count_GT = int(image_name.split('_')[2].split('C')[1])
         click = Pixel_locator()
         click.fname = image
