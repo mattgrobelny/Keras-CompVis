@@ -111,11 +111,7 @@ for image in image_list:
 
     if image_name not in done_files:
         print "Working on:", image_name, "--- %s" % (float(zero + len(done_files)) / float(len(image_list)) * 100), '% done for image set'
-        test = image_name.split('_')[2]
-        print test
-        test2 = test.split('C')[1]
-        print test2
-        print image_name.split('_')[2].split('C')[1]
+        # print image_name.split('_')[2].split('C')[1]
         cell_count_GT = int(image_name.split('_')[2].split('C')[1])
         click = Pixel_locator()
         click.fname = image
