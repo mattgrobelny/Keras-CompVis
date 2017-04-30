@@ -77,6 +77,7 @@ class Pixel_locator():
         fig = plt.figure()
         ax = fig.add_subplot(111)
         imshow(self.img, cmap='gray')
+
         print "Number of Clicks Left:", self.click_left
 
         # Trigger click detection
