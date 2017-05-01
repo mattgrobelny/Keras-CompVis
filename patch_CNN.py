@@ -5,7 +5,7 @@
 # from keras.models import Sequential
 # from keras.layers import Dense, Dropout, Activation, Flatten
 # from keras.layers import Conv2D, MaxPooling2D
-#from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
+from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 from PIL import Image
 import numpy as np
 import glob
@@ -15,9 +15,9 @@ import cv2
 # Directories
 
 # Polar sever
-#home = '/home/grobeln2/git_files/Keras-CompVis/'
+home = '/home/grobeln2/git_files/Keras-CompVis/'
 
-home = '/Users/matt/github/Keras-CompVis/'
+#home = '/Users/matt/github/Keras-CompVis/'
 patch_images = '/data/Patches_ALL/'
 validation_data_dir = home + 'data/Working_Sets/Validation'
 train_data_dir = home + 'data/Working_Sets/Training'
@@ -35,11 +35,11 @@ image_list = glob.glob(glob_dir)
 # print image_list
 
 
-images = np.zeros(shape=(1, 34, 34, 1))
+images = []
 label = []
 img_width = 34
 img_height = 34
-for image_dir in image_list[1:100]:
+for image_dir in image_list[1:2]:
     # get image name
     image_name = image_dir.split('/')[-1][0:-4]
     print "Working on:", image_name
@@ -56,6 +56,7 @@ for image_dir in image_list[1:100]:
     images.append(numpy_image)
 print images
 #
+print images[1]
 # # # the .flow() command below generates batches of randomly transformed images
 # # # and saves the results to the `preview/` directory
 # # i = 0
