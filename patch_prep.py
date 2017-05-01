@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Ellipse
 from pylab import *
 import sys
-# import RE
+
 
 # Dir for cell images - change for your directory
 # CHANGE ME TO RUN SCRIPT
