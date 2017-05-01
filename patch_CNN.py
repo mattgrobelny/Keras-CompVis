@@ -11,16 +11,19 @@ import numpy
 
 #######
 # Directories
-validation_data_dir = './data/Working_Sets/Validation'
-train_data_dir = './data/Working_Sets/Training'
-test_data_dir = './data/Working_Sets/Test'
+
+# Polar sever
+home = '/home/grobeln2/git_files/Keras-CompVis/'
+validation_data_dir = home + 'data/Working_Sets/Validation'
+train_data_dir = home + 'data/Working_Sets/Training'
+test_data_dir = home + 'data/Working_Sets/Test'
 # (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 # y_train = np_utils.to_categorical(y_train, num_classes)
 # y_test = np_utils.to_categorical(y_test, num_classes)
 
 # this is a PIL image
 img = Image.open(
-    '/Users/matt/github/Keras-CompVis/data/Patches_ALL/SIMCEPImages_A03_C10_F1_s22_w1_Patch_9_CX_1.jpg')
+    home + 'data/Patches_ALL/SIMCEPImages_A03_C10_F1_s22_w1_Patch_9_CX_1.jpg')
 x_image = img_to_array(img)  # this is a Numpy array with shape (3, 150, 150)
 # this is a Numpy array with shape (1, 3, 150, 150)
 x_image = x.reshape((1,) + x.shape)
