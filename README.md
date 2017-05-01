@@ -34,11 +34,22 @@ Need to find a source for images which have features which can be easily identif
 2. http://www.cs.tut.fi/sgn/csb/simcep/benchmark/ (Benchmark images)
 3. Simulated cell images: https://data.broadinstitute.org/bbbc/BBBC005/
 
-## Patch prep
+Training:  
+Data set used to train network (60%)
+
+Validation:
+periodically during training check (20%) --> Check for Overfitting
+
+Test set:
+only use to evaluate progress (20%)
+
+#### Patch prep
 - Total Images annotated: 230
 - Nuclei images annotated: 143
-- Blank patches: 1023
-- Bell patches: 6693
+
+- Patch images: 9127
+- Blank patches: 2434
+- Cell patches: 6693
 
 
 From: https://www.tensorflow.org/tutorials/deep_cnn  
