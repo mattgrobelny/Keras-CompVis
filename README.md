@@ -2,7 +2,7 @@
 Stats530 Computer vision project
 
 ## Goals:
-Train a CNN to count cells from microscope images. 
+Train a CNN to count cells from microscope images.
 
 ### There are several things I think we should determine:
 1. Exactly what do we want to count/identify from an image.
@@ -34,6 +34,13 @@ Need to find a source for images which have features which can be easily identif
 2. http://www.cs.tut.fi/sgn/csb/simcep/benchmark/ (Benchmark images)
 3. Simulated cell images: https://data.broadinstitute.org/bbbc/BBBC005/
 
+## Patch prep
+- Total Images annotated: 230
+- Nuclei images annotated: 143
+- Blank patches: 1023
+- Bell patches: 6693
+
+
 From: https://www.tensorflow.org/tutorials/deep_cnn  
 For training, we additionally apply a series of random distortions to artificially increase the data set size:  
 - Randomly flip the image from left to right.
@@ -54,3 +61,8 @@ https://keras.io/getting-started/sequential-model-guide/
 
 Small images training
 https://github.com/fchollet/keras/blob/master/examples/cifar10_cnn.py
+
+## Pipeline
+1. Annotate cell images `click_label.py`  
+2. Create patches of cells and none cell regions from annotate cell locations `patch_prep.py`
+3.

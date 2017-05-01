@@ -1,9 +1,4 @@
 from PIL import Image
-import glob
-# import cv2
-import matplotlib.pyplot as plt
-from matplotlib.patches import Ellipse
-from pylab import *
 import sys
 
 
@@ -59,12 +54,13 @@ def output_patches(location_cell_csv, cell_location_csv, image_location, patch_l
 
         print image_name
         if 1 != len(image_name.split("w1")):
-            # print cell_locations[1].split('),')
             count = 1
             none_count = 0
+
             # Load the original image:
             img = Image.open(image_location + image_name + ".TIF")
 
+            # save img dims
             height, width = img.size
 
             for location in cell_locations[1].split('),'):
@@ -97,7 +93,7 @@ def output_patches(location_cell_csv, cell_location_csv, image_location, patch_l
                 # get random values in range of image size
                 rand_x = randint(1, height)
                 rand_y = randint(1, width)
-                # print rand_x, rand_y
+
                 # test if random pixel is already part of cell crop range
                 if (rand_x, rand_y) not in cell_image_crop_ranges:
                     list_of_vals = set()
@@ -112,23 +108,22 @@ def output_patches(location_cell_csv, cell_location_csv, image_location, patch_l
                     B_x4 = int(rand_x) - cell_h / 2
                     B_y4 = int(rand_y) + cell_w / 2
 
-                    # make list for blank endpoints
-                    list_of_vals = set(
+                    # make set for blank endpoints
+                    set_of_vals = set(
                         ((B_x1, B_y1), (B_x2, B_y2), (B_x3, B_y3), (B_x4, B_y4)))
 
                     # test if end points are in crop ranges
-                    if list_of_vals.issubset(cell_image_crop_ranges):
+                    if set_of_vals.issubset(cell_image_crop_ranges):
                         rand_x = randint(1, height)
                         rand_y = randint(1, width)
                         continue
                     else:
-                        # if not in range of crop than make a blank image
+                        # if not in range of cell crops than make a blank image
                         blank_img = img.crop((B_x1, B_y1, B_x2, B_y2))
                         none_count += 1
 
-                        # Save images if overall intenisty is bellow 100
+                        # Save images if max pixel intenisty is bellow 100
                         if blank_img.getextrema()[1] < exm_pix:
-                            # print "blank", blank_img.getextrema()
                             blank_img.save(patch_location + image_name +
                                            "_Patch_" + str(none_count) + "_CX_0_" + ".TIF")
                         else:
@@ -138,10 +133,14 @@ def output_patches(location_cell_csv, cell_location_csv, image_location, patch_l
         else:
             continue
 
+##########################################################################
 # Output patches for each random set of images
+# rand_200
 output_patches(location_cell_csv, cell_location_csv1,
                image_location1, patch_location)
+# rand_500
 output_patches(location_cell_csv, cell_location_csv2,
                image_location2, patch_location)
+# rand_1000
 output_patches(location_cell_csv, cell_location_csv3,
                image_location3, patch_location)

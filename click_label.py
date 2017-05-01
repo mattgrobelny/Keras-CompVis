@@ -110,9 +110,9 @@ cell_locations = []
 for image in image_list:
     image_name = image.split(splitter)[-1][0:-4]
 
-    if image_name not in done_files:
+    # Work on images which are not body stained and are not already annotated
+    if image_name not in done_files and 1 != len(image_name.split("w1")):
         print "Working on:", image_name, "--- %s" % (float(zero + len(done_files)) / float(len(image_list)) * 100), '% done for image set'
-        # print image_name.split('_')[2].split('C')[1]
         cell_count_GT = int(image_name.split('_')[2].split('C')[1])
         click = Pixel_locator()
         click.fname = image
