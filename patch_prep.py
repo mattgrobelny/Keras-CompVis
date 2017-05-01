@@ -1,4 +1,9 @@
 from PIL import Image
+import glob
+# import cv2
+import matplotlib.pyplot as plt
+from matplotlib.patches import Ellipse
+from pylab import *
 import sys
 
 
@@ -29,7 +34,7 @@ def output_patches(location_cell_csv, cell_location_csv, image_location, patch_l
     cell_h = 35
 
     # try to make x num blank patches per image
-    none_cell_images_count = 10
+    none_cell_images_count = 20
 
     # high end pixel vals allowed in blank image
     exm_pix = 100
@@ -84,7 +89,7 @@ def output_patches(location_cell_csv, cell_location_csv, image_location, patch_l
 
                 # Save patch XC means cell present Y = 1 , N =0
                 img2.save(patch_location + image_name +
-                          "_Patch_" + str(count) + "_CX_1" + ".TIF")
+                          "_Patch_" + str(count) + "_CX_1" + ".jpg")
                 count += 1
 
             # Make blank images no more than none_cell_images_count times
@@ -125,7 +130,7 @@ def output_patches(location_cell_csv, cell_location_csv, image_location, patch_l
                         # Save images if max pixel intenisty is bellow 100
                         if blank_img.getextrema()[1] < exm_pix:
                             blank_img.save(patch_location + image_name +
-                                           "_Patch_" + str(none_count) + "_CX_0_" + ".TIF")
+                                           "_Patch_" + str(none_count) + "_CX_0_" + ".jpg")
                         else:
                             continue
                 else:
