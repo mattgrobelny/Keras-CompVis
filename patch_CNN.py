@@ -5,15 +5,20 @@
 # from keras.models import Sequential
 # from keras.layers import Dense, Dropout, Activation, Flatten
 # from keras.layers import Conv2D, MaxPooling2D
-from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
+#from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 from PIL import Image
-import numpy
+import numpy as np
+import glob
+import cv2
 
 #######
 # Directories
 
 # Polar sever
-home = '/home/grobeln2/git_files/Keras-CompVis/'
+#home = '/home/grobeln2/git_files/Keras-CompVis/'
+
+home = '/Users/matt/github/Keras-CompVis/'
+patch_images = '/data/Patches_ALL/'
 validation_data_dir = home + 'data/Working_Sets/Validation'
 train_data_dir = home + 'data/Working_Sets/Training'
 test_data_dir = home + 'data/Working_Sets/Test'
@@ -21,22 +26,44 @@ test_data_dir = home + 'data/Working_Sets/Test'
 # y_train = np_utils.to_categorical(y_train, num_classes)
 # y_test = np_utils.to_categorical(y_test, num_classes)
 
-# this is a PIL image
-img = Image.open(
-    home + 'data/Patches_ALL/SIMCEPImages_A03_C10_F1_s22_w1_Patch_9_CX_1.jpg')
-x_image = img_to_array(img)  # this is a Numpy array with shape (3, 150, 150)
-# this is a Numpy array with shape (1, 3, 150, 150)
-x_image = x.reshape((1,) + x.shape)
+# string for glob to produce list of files only .jpgs
+glob_dir = home + patch_images + '*.jpg'
+# print glob_dir
 
-print x_image
-# # the .flow() command below generates batches of randomly transformed images
-# # and saves the results to the `preview/` directory
-# i = 0
-# for batch in datagen.flow(x, batch_size=1,
-#                           save_to_dir='preview', save_prefix='cat', save_format='jpeg'):
-#     i += 1
-#     if i > 20:
-#         break  # otherwise the generator would loop indefinitely
+# Get list of images to work on
+image_list = glob.glob(glob_dir)
+# print image_list
+
+
+images = np.zeros(shape=(1, 34, 34, 1))
+label = []
+img_width = 34
+img_height = 34
+for image_dir in image_list[1:100]:
+    # get image name
+    image_name = image_dir.split('/')[-1][0:-4]
+    print "Working on:", image_name
+    # get image label
+    label_val = image_name.split('CX_')[1][0]
+    label.append(label_val)
+
+    # open image
+    image_open = Image.open(image_dir)
+
+    # reshape to numpy array
+    numpy_image = img_to_array(image_open)
+    numpy_image = numpy_image.reshape((1,) + numpy_image.shape)
+    images.append(numpy_image)
+print images
+#
+# # # the .flow() command below generates batches of randomly transformed images
+# # # and saves the results to the `preview/` directory
+# # i = 0
+# # for batch in datagen.flow(x, batch_size=1,
+# #                           save_to_dir='preview', save_prefix='cat', save_format='jpeg'):
+# #     i += 1
+# #     if i > 20:
+# #         break  # otherwise the generator would loop indefinitely
 #
 #
 # datagen = ImageDataGenerator(
@@ -76,32 +103,32 @@ print x_image
 #     validation_steps=nb_validation_samples // batch_size)
 #
 # model.save_weights('first_try.h5')
-
-# batch_size = 16
 #
-# # this is the augmentation configuration we will use for training
-# train_datagen = ImageDataGenerator(
-#         rescale=1./255,
-#         shear_range=0.2,
-#         zoom_range=0.2,
-#         horizontal_flip=True)
-#
-# # this is the augmentation configuration we will use for testing:
-# # only rescaling
-# test_datagen = ImageDataGenerator(rescale=1./255)
-#
-# # this is a generator that will read pictures found in
-# # subfolers of 'data/train', and indefinitely generate
-# # batches of augmented image data
-# train_generator = train_datagen.flow_from_directory(
-#         'data/train',  # this is the target directory
-#         target_size=(150, 150),  # all images will be resized to 150x150
-#         batch_size=batch_size,
-#         class_mode='binary')  # since we use binary_crossentropy loss, we need binary labels
-#
-# # this is a similar generator, for validation data
-# validation_generator = test_datagen.flow_from_directory(
-#         'data/validation',
-#         target_size=(150, 150),
-#         batch_size=batch_size,
-#         class_mode='binary')
+# # batch_size = 16
+# #
+# # # this is the augmentation configuration we will use for training
+# # train_datagen = ImageDataGenerator(
+# #         rescale=1./255,
+# #         shear_range=0.2,
+# #         zoom_range=0.2,
+# #         horizontal_flip=True)
+# #
+# # # this is the augmentation configuration we will use for testing:
+# # # only rescaling
+# # test_datagen = ImageDataGenerator(rescale=1./255)
+# #
+# # # this is a generator that will read pictures found in
+# # # subfolers of 'data/train', and indefinitely generate
+# # # batches of augmented image data
+# # train_generator = train_datagen.flow_from_directory(
+# #         'data/train',  # this is the target directory
+# #         target_size=(150, 150),  # all images will be resized to 150x150
+# #         batch_size=batch_size,
+# #         class_mode='binary')  # since we use binary_crossentropy loss, we need binary labels
+# #
+# # # this is a similar generator, for validation data
+# # validation_generator = test_datagen.flow_from_directory(
+# #         'data/validation',
+# #         target_size=(150, 150),
+# #         batch_size=batch_size,
+# #         class_mode='binary')
