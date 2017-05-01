@@ -22,11 +22,22 @@ cell_location_csv = 'Cell_locations_200.csv'
 # CHANGE ME TO RUN SCRIPT
 location_cell_csv = '/Users/matt/github/Keras-CompVis/data/cell_locations_out/'
 
-# expected cell demension
+####################################################
+# patch prep parameters
+
+# expected cell dims
 cell_w = 35
 cell_h = 35
+
+# try to make x num blank patches per image
 none_cell_images_count = 10
-exm_para = 100  # high end allowed in blank image
+
+# high end pixel vals allowed in blank image
+exm_pix = 100
+
+####################################################
+
+# open csv
 csv_fh = open(location_cell_csv + cell_location_csv, 'r')
 
 # Method for extracting image name and cell location from csv
@@ -112,7 +123,7 @@ for line in csv_fh:
                     none_count += 1
 
                     # Save images if overall intenisty is bellow 100
-                    if blank_img.getextrema()[1] < exm_para:
+                    if blank_img.getextrema()[1] < exm_pix:
                         print "blank", blank_img.getextrema()
                         blank_img.save(patch_location + image_name +
                                        "_Patch_" + str(none_count) + "_CX_0_" + ".TIF")
