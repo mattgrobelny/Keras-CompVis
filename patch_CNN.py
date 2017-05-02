@@ -14,10 +14,13 @@ import cv2
 #######
 # Directories
 
-# Polar sever
-home = '/home/grobeln2/git_files/Keras-CompVis/'
+# Polar server
+#home = '/home/grobeln2/git_files/Keras-CompVis/'
 
-#home = '/Users/matt/github/Keras-CompVis/'
+# Mac
+home = '/Users/matt/github/Keras-CompVis/'
+
+########
 patch_images = '/data/Patches_ALL/'
 validation_data_dir = home + 'data/Working_Sets/Validation'
 train_data_dir = home + 'data/Working_Sets/Training'
@@ -39,7 +42,7 @@ images = []
 label = []
 img_width = 34
 img_height = 34
-for image_dir in image_list[1:2]:
+for image_dir in image_list[1:100]:
     # get image name
     image_name = image_dir.split('/')[-1][0:-4]
     print "Working on:", image_name
@@ -54,55 +57,45 @@ for image_dir in image_list[1:2]:
     numpy_image = img_to_array(image_open)
     numpy_image = numpy_image.reshape((1,) + numpy_image.shape)
     images.append(numpy_image)
-print images
-#
-print images[1]
-# # # the .flow() command below generates batches of randomly transformed images
-# # # and saves the results to the `preview/` directory
-# # i = 0
-# # for batch in datagen.flow(x, batch_size=1,
-# #                           save_to_dir='preview', save_prefix='cat', save_format='jpeg'):
-# #     i += 1
-# #     if i > 20:
-# #         break  # otherwise the generator would loop indefinitely
-#
-#
-# datagen = ImageDataGenerator(
-#     # featurewise_center=True,
-#     featurewise_std_normalization=True,
-#     rotation_range=20,
-#     # width_shift_range=0.2,
-#     # height_shift_range=0.2,
-#     horizontal_flip=True,
-#     channel_shift_range=100)
-#
-# # compute quantities required for featurewise normalization
-# # (std, mean, and principal components if ZCA whitening is applied)
-# datagen.fit(x_train)
-#
-# # fits the model on batches with real-time data augmentation:
-# model.fit_generator(datagen.flow(x_train, y_train, batch_size=32),
-#                     steps_per_epoch=len(x_train) / 32, epochs=epochs)
-#
-# train_generator = train_datagen.flow_from_directory(
-#     train_data_dir,
-#     target_size=(img_width, img_height),
-#     batch_size=batch_size,
-#     class_mode='binary')
-#
-# validation_generator = test_datagen.flow_from_directory(
-#     validation_data_dir,
-#     target_size=(img_width, img_height),
-#     batch_size=batch_size,
-#     class_mode='binary')
-#
+print len(images)
+
+
+datagen = ImageDataGenerator(
+    # featurewise_center=True,
+    featurewise_std_normalization=True,
+    rotation_range=20,
+    # width_shift_range=0.2,
+    # height_shift_range=0.2,
+    horizontal_flip=True,
+    channel_shift_range=100)
+
+# compute quantities required for featurewise normalization
+# (std, mean, and principal components if ZCA whitening is applied)
+datagen.fit(x_train)
+
+# fits the model on batches with real-time data augmentation:
+model.fit_generator(datagen.flow(x_train, y_train, batch_size=32),
+                    steps_per_epoch=len(x_train) / 32, epochs=epochs)
+
+train_generator = datagen.flow_from_directory(
+    train_data_dir,
+    target_size=(img_width, img_height),
+    batch_size=batch_size,
+    class_mode='binary')
+
+validation_generator = datagen.flow_from_directory(
+    validation_data_dir,
+    target_size=(img_width, img_height),
+    batch_size=batch_size,
+    class_mode='binary')
+
 # model.fit_generator(
 #     train_generator,
 #     steps_per_epoch=nb_train_samples // batch_size,
 #     epochs=epochs,
 #     validation_data=validation_generator,
 #     validation_steps=nb_validation_samples // batch_size)
-#
+
 # model.save_weights('first_try.h5')
 #
 # # batch_size = 16
