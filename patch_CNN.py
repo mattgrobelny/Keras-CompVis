@@ -38,26 +38,58 @@ image_list = glob.glob(glob_dir)
 # print image_list
 
 
-images = []
-label = []
-img_width = 34
-img_height = 34
-for image_dir in image_list[1:100]:
-    # get image name
-    image_name = image_dir.split('/')[-1][0:-4]
-    print "Working on:", image_name
-    # get image label
-    label_val = image_name.split('CX_')[1][0]
-    label.append(label_val)
+# images = []
+# label = []
+# img_width = 34
+# img_height = 34
+# for image_dir in image_list[1:100]:
+#     # get image name
+#     image_name = image_dir.split('/')[-1][0:-4]
+#     print "Working on:", image_name
+#     # get image label
+#     label_val = image_name.split('CX_')[1][0]
+#     label.append(label_val)
+#
+#     # open image
+#     image_open = Image.open(image_dir)
+#
+#     # reshape to numpy array
+#     numpy_image = img_to_array(image_open)
+#     numpy_image = numpy_image.reshape((1,) + numpy_image.shape)
+#     images.append(numpy_image)
+# print len(images)
 
-    # open image
-    image_open = Image.open(image_dir)
+# Hyper parameters
+batch_size = 32
 
-    # reshape to numpy array
-    numpy_image = img_to_array(image_open)
-    numpy_image = numpy_image.reshape((1,) + numpy_image.shape)
-    images.append(numpy_image)
-print len(images)
+model = Sequential()
+
+model.add(Conv2D(32, (3, 3), padding='same',
+                 input_shape=x_train.shape[1:]))
+model.add(Activation('relu'))
+model.add(Conv2D(32, (3, 3)))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.25))
+
+model.add(Conv2D(64, (3, 3), padding='same'))
+model.add(Activation('relu'))
+model.add(Conv2D(64, (3, 3)))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.25))
+
+model.add(Flatten())
+model.add(Dense(512))
+model.add(Activation('relu'))
+model.add(Dropout(0.5))
+model.add(Dense(num_classes))
+model.add(Activation('softmax'))
+
+# Let's train the model using RMSprop
+model.compile(loss='categorical_crossentropy',
+              optimizer='rmsprop',
+              metrics=['accuracy'])
 
 
 datagen = ImageDataGenerator(
@@ -71,11 +103,11 @@ datagen = ImageDataGenerator(
 
 # compute quantities required for featurewise normalization
 # (std, mean, and principal components if ZCA whitening is applied)
-datagen.fit(x_train)
-
-# fits the model on batches with real-time data augmentation:
-model.fit_generator(datagen.flow(x_train, y_train, batch_size=32),
-                    steps_per_epoch=len(x_train) / 32, epochs=epochs)
+# datagen.fit(x_train)
+#
+# # fits the model on batches with real-time data augmentation:
+# model.fit_generator(datagen.flow(x_train, y_train, batch_size=batch_size),
+#                     steps_per_epoch=len(x_train) / batch_size, epochs=epochs)
 
 train_generator = datagen.flow_from_directory(
     train_data_dir,
@@ -89,14 +121,17 @@ validation_generator = datagen.flow_from_directory(
     batch_size=batch_size,
     class_mode='binary')
 
-# model.fit_generator(
-#     train_generator,
-#     steps_per_epoch=nb_train_samples // batch_size,
-#     epochs=epochs,
-#     validation_data=validation_generator,
-#     validation_steps=nb_validation_samples // batch_size)
+model.fit_generator(
+    train_generator,
+    steps_per_epoch=nb_train_samples // batch_size,
+    epochs=epochs,
+    batch_size=batch_size,
+    validation_data=validation_generator,
+    validation_steps=nb_validation_samples // batch_size)
 
-# model.save_weights('first_try.h5')
+model.save_weights('first_try.h5')
+
+
 #
 # # batch_size = 16
 # #
