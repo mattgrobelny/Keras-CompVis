@@ -48,12 +48,12 @@ num_classes = 2
 epochs = 5
 
 # Addintial parameters
-img_width = 34
-img_height = 34
+img_width = 35
+img_height = 35
 
 # input_shape=(128, 128, 3) for 128x128 RGB pictures in
 # data_format="channels_last".
-input_shape_image = (34, 34, 1)
+input_shape_image = (35, 35, 3)
 
 # number of training samples
 nb_train_samples = 5475
@@ -83,7 +83,7 @@ print('Stating patch CNN')
 
 datagen = ImageDataGenerator(
     # featurewise_center=True,
-    featurewise_std_normalization=True,
+    # featurewise_std_normalization=True,
     rotation_range=20,
     # width_shift_range=0.2,
     # height_shift_range=0.2,
@@ -100,40 +100,40 @@ datagen = ImageDataGenerator(
 print("Starting Data Prep")
 train_generator = datagen.flow_from_directory(
     train_data_dir,
-    color_mode='grayscale',
-    target_size=(img_width, img_height),
+    color_mode='rgb',
+    target_size=(35, 35),
     batch_size=batch_size,
     class_mode='binary')
 print("Finished Data Prep: train_generator")
 
 validation_generator = datagen.flow_from_directory(
     validation_data_dir,
-    color_mode='grayscale',
-    target_size=(img_width, img_height),
+    color_mode='rgb',
+    target_size=(35, 35),
     batch_size=batch_size,
     class_mode='binary')
 print("Finished Data Prep: validation_generator")
 
 model = Sequential()
 
-model.add(Conv2D(34, (3, 3), padding='same',
+model.add(Conv2D(35, (3, 3), padding='same',
                  data_format="channels_last",
                  input_shape=input_shape_image))
 model.add(Activation('relu'))
-model.add(Conv2D(34, (3, 3)))
+model.add(Conv2D(35, (3, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
-model.add(Conv2D(64, (3, 3), padding='same'))
+model.add(Conv2D(70, (3, 3), padding='same'))
 model.add(Activation('relu'))
-model.add(Conv2D(64, (3, 3)))
+model.add(Conv2D(70, (3, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
 model.add(Flatten())
-model.add(Dense(512))
+model.add(Dense(560))
 model.add(Activation('relu'))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes))
@@ -142,7 +142,7 @@ model.add(Activation('softmax'))
 print('Finished Building Network Architecture')
 
 # Let's train the model using RMSprop
-model.compile(loss='categorical_crossentropy',
+model.compile(loss='sparse_categorical_crossentropy',
               optimizer='rmsprop',
               metrics=['accuracy'])
 
