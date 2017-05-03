@@ -26,7 +26,7 @@ patch_images = '/data/Patches_ALL/'
 validation_data_dir = home + 'data/Working_Sets_Patches/Validation/'
 train_data_dir = home + 'data/Working_Sets_Patches/Training/'
 test_data_dir = home + 'data/Working_Sets_Patches/Test/'
-model_dir = home + 'CNN_models/Patches_Models/'
+model_dir = home + 'cnn_models/patches_models/'
 # (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 # y_train = np_utils.to_categorical(y_train, num_classes)
 # y_test = np_utils.to_categorical(y_test, num_classes)
@@ -46,7 +46,7 @@ model_dir = home + 'CNN_models/Patches_Models/'
 # Hyper parameters
 batch_size = 32
 num_classes = 2
-epochs = 5
+epochs = 1
 
 # Addintial parameters
 img_width = 35
@@ -163,6 +163,8 @@ model.save_weights(model_dir + 'first_try.h5')
 
 print("Model Saved")
 
+from keras.utils import plot_model
+plot_model(model, to_file= home+'patch_CNN_model.png')
 
 #
 # # batch_size = 16
