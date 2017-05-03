@@ -49,7 +49,7 @@ model_dir = home + 'cnn_models/patches_models/'
 # Hyper parameters
 batch_size = 30
 num_classes = 2
-epochs = 1
+epochs = 3
 
 # Addintial parameters
 img_width = 35
@@ -149,5 +149,5 @@ model.save_weights(model_dir + 'first_try.h5')
 
 print("Model Saved")
 
-# Save image of model
-plot_model(model, to_file=home + 'patch_CNN_model.png', show_shapes=True)
+# # Save image of model /// pip install pydot-ng or pydot as sudo?
+# plot_model(model, to_file=home + 'patch_CNN_model.png', show_shapes=True)
