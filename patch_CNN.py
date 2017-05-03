@@ -160,19 +160,17 @@ print("Model Saved")
 x = np.linspace(0, epochs)
 fig, ax = plt.subplots()
 
-line1, = ax.plot(x, model_fit.history['acc'], '--', linewidth=2,
+line1, = ax.plot(x, model_fit.history['acc'], linewidth=2,
                  label='Train Accuracy', color='red')
-line1.set_dashes(dashes)
 
 line2, = ax.plot(x, model_fit.history['val_acc'],
                  label='Val Accuracy', color='blue')
-line2.set_dashes(dashes)
 
 line3, = ax.plot(x, model_fit.history['loss'],
                  label='Train Loss', color='red')
 
 line4, = ax.plot(x, model_fit.history['val_loss'],
-                 label='Val Loss', '--', linewidth=2, color='blue')
+                 label='Val Loss', linewidth=2, color='blue')
 
 ax.legend(loc='lower right')
 plt.xlim(0, epochs)
