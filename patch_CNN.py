@@ -5,12 +5,13 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
+from keras.utils import plot_model
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 from PIL import Image
 import numpy as np
 import h5py
-#import graphviz
-#import pydot
+import graphviz
+import pydot
 import glob
 import cv2
 
@@ -46,7 +47,7 @@ model_dir = home + 'cnn_models/patches_models/'
 # label = []
 
 # Hyper parameters
-batch_size = 32
+batch_size = 10
 num_classes = 2
 epochs = 1
 
@@ -63,24 +64,6 @@ nb_train_samples = 5475
 
 # number of training samples
 nb_validation_samples = 1826
-
-# for image_dir in image_list[1:100]:
-#     # get image name
-#     image_name = image_dir.split('/')[-1][0:-4]
-#     print "Working on:", image_name
-#     # get image label
-#     label_val = image_name.split('CX_')[1][0]
-#     label.append(label_val)
-#
-#     # open image
-#     image_open = Image.open(image_dir)
-#
-#     # reshape to numpy array
-#     numpy_image = img_to_array(image_open)
-#     numpy_image = numpy_image.reshape((1,) + numpy_image.shape)
-#     images.append(numpy_image)
-# print len(images)
-
 
 print('Stating patch CNN')
 
@@ -165,35 +148,5 @@ model.save_weights(model_dir + 'first_try.h5')
 
 print("Model Saved")
 
-from keras.utils import plot_model
-plot_model(model, to_file=home + 'patch_CNN_model.png')
-
-#
-# # batch_size = 16
-# #
-# # # this is the augmentation configuration we will use for training
-# # train_datagen = ImageDataGenerator(
-# #         rescale=1./255,
-# #         shear_range=0.2,
-# #         zoom_range=0.2,
-# #         horizontal_flip=True)
-# #
-# # # this is the augmentation configuration we will use for testing:
-# # # only rescaling
-# # test_datagen = ImageDataGenerator(rescale=1./255)
-# #
-# # # this is a generator that will read pictures found in
-# # # subfolers of 'data/train', and indefinitely generate
-# # # batches of augmented image data
-# # train_generator = train_datagen.flow_from_directory(
-# #         'data/train',  # this is the target directory
-# #         target_size=(150, 150),  # all images will be resized to 150x150
-# #         batch_size=batch_size,
-# #         class_mode='binary')  # since we use binary_crossentropy loss, we need binary labels
-# #
-# # # this is a similar generator, for validation data
-# # validation_generator = test_datagen.flow_from_directory(
-# #         'data/validation',
-# #         target_size=(150, 150),
-# #         batch_size=batch_size,
-# #         class_mode='binary')
+# Save image of model
+plot_model(model, to_file=home + 'patch_CNN_model.png', show_shapes=True)
