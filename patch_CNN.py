@@ -51,7 +51,7 @@ model_dir = home + 'cnn_models/patches_models/'
 # Hyper parameters
 batch_size = 30
 num_classes = 2
-epochs = 3
+epochs = 1
 
 # Addintial parameters
 img_width = 35
@@ -157,26 +157,24 @@ print("Model Saved")
 ##############################################################################
 # Plot metrics
 
-x = np.linspace(0, epochs)
-fig, ax = plt.subplots()
-
-line1, = ax.plot(x, model_fit.history['acc'], linewidth=2,
-                 label='Train Accuracy', color='red')
-
-line2, = ax.plot(x, model_fit.history['val_acc'],
-                 label='Val Accuracy', color='blue')
-
-line3, = ax.plot(x, model_fit.history['loss'],
-                 label='Train Loss', color='red')
-
-line4, = ax.plot(x, model_fit.history['val_loss'],
-                 label='Val Loss', linewidth=2, color='blue')
-
-ax.legend(loc='lower right')
-plt.xlim(0, epochs)
-plt.ylim(0, 1)
-plt.xlabel('Epoch #')
-plt.title('Test Metric')
-
-plt.savefig(model_dir, dpi=200, rasterized=True)
-plt.close()
+# x = np.linspace(0, epochs)
+# plt.plots()
+#
+# ax.plot(x, model_fit.history['acc'], linewidth=2,
+#         label='Train Accuracy', color='red')
+#
+# ax.plot(x, model_fit.history['val_acc'], label='Val Accuracy', color='blue')
+#
+# ax.plot(x, model_fit.history['loss'], label='Train Loss', color='red')
+#
+# ax.plot(x, model_fit.history['val_loss'],
+#         label='Val Loss', linewidth=2, color='blue')
+#
+# ax.legend(loc='lower right')
+# plt.xlim(0, epochs)
+# plt.ylim(0, 1)
+# plt.xlabel('Epoch #')
+# plt.title('Test Metric')
+#
+# plt.savefig(model_dir, dpi=200, rasterized=True)
+# plt.close()
