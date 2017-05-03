@@ -140,7 +140,7 @@ model_fit = model.fit_generator(
     epochs=epochs,
     validation_data=validation_generator,
     validation_steps=nb_validation_samples // batch_size)
-print model_fit.history
+print(model_fit.history)
 print("Finished Training")
 
 print("Saving Model...")
