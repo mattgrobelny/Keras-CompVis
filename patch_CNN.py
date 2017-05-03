@@ -9,6 +9,8 @@ from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_a
 from PIL import Image
 import numpy as np
 import h5py
+import graphviz
+import pydot
 import glob
 import cv2
 
@@ -164,7 +166,7 @@ model.save_weights(model_dir + 'first_try.h5')
 print("Model Saved")
 
 from keras.utils import plot_model
-plot_model(model, to_file= home+'patch_CNN_model.png')
+plot_model(model, to_file=home + 'patch_CNN_model.png')
 
 #
 # # batch_size = 16
