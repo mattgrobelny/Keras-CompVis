@@ -14,9 +14,9 @@ import graphviz
 # import pydot
 # import glob
 import cv2
-import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 
 #######
@@ -176,6 +176,7 @@ print("Model Saved")
 # 'val_loss': [0.24718743686874708, 0.23444461379457424,
 # 0.067491092876778014]}
 
+print("Plotting Metrics")
 # Set up x range
 x = range(1, epochs + 1)
 
@@ -221,3 +222,6 @@ plt.xticks(x)
 # save fig
 plt.savefig(model_dir + "Metric_Patch_CNN.jpg", dpi=200, rasterized=True)
 plt.close()
+print("Plot Saved as:")
+print(model_dir + "Metric_Patch_CNN.jpg")
+print("DONE!")
