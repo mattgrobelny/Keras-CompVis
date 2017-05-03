@@ -219,5 +219,5 @@ plt.xlim(1, epochs)
 plt.xticks(x)
 
 # save fig
-plt.savefig(model_dir + "Metric_Patch_CNN.png", dpi=200, rasterized=True)
+plt.savefig(model_dir + "Metric_Patch_CNN.jpg", dpi=200, rasterized=True)
 plt.close()
