@@ -9,8 +9,8 @@ from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_a
 from PIL import Image
 import numpy as np
 import h5py
-import graphviz
-import pydot
+#import graphviz
+#import pydot
 import glob
 import cv2
 
