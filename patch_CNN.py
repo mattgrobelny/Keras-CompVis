@@ -47,7 +47,7 @@ model_dir = home + 'cnn_models/patches_models/'
 # label = []
 
 # Hyper parameters
-batch_size = 200
+batch_size = 30
 num_classes = 2
 epochs = 1
 
@@ -130,7 +130,7 @@ print('Finished Building Network Architecture')
 
 # Let's train the model using RMSprop
 model.compile(loss='categorical_crossentropy',
-              optimizer='rmsprop',
+              optimizer='sgd',
               metrics=['accuracy'])
 
 print("Starting Training")
