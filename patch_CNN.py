@@ -15,10 +15,10 @@ import cv2
 # Directories
 
 # Polar server
-# home = '/home/grobeln2/git_files/Keras-CompVis/'
+home = '/home/grobeln2/git_files/Keras-CompVis/'
 
 # Mac
-home = '/Users/matt/github/Keras-CompVis/'
+#home = '/Users/matt/github/Keras-CompVis/'
 
 ########
 patch_images = '/data/Patches_ALL/'
