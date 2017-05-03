@@ -54,7 +54,7 @@ model_dir = home + 'cnn_models/patches_models/'
 # Hyper parameters
 batch_size = 30
 num_classes = 2
-epochs = 1
+epochs = 3
 
 # Addintial parameters
 img_width = 35
@@ -206,7 +206,7 @@ ax2.plot(x, model_fit.history['loss'], label='Train', color='blue')
 ax2.plot(x, model_fit.history['val_loss'],
          label='Validation', linewidth=2, color='red', linestyle='--')
 ax2.set_ylabel('Loss Metric', color='r')
-ax2.tick_params('y', colors='r')
+ax2.tick_params('y')
 
 # second axis limits
 combine_loss = []
