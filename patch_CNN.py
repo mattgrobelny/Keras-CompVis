@@ -74,6 +74,7 @@ datagen = ImageDataGenerator(
     # width_shift_range=0.2,
     # height_shift_range=0.2,
     horizontal_flip=True,
+    vertical_flip=True,
     channel_shift_range=100)
 
 # compute quantities required for featurewise normalization
@@ -89,7 +90,7 @@ train_generator = datagen.flow_from_directory(
     color_mode='rgb',
     target_size=(35, 35),
     batch_size=batch_size,
-    class_mode='binary')
+    class_mode='categorical')
 print("Finished Data Prep: train_generator")
 
 validation_generator = datagen.flow_from_directory(
@@ -97,7 +98,7 @@ validation_generator = datagen.flow_from_directory(
     color_mode='rgb',
     target_size=(35, 35),
     batch_size=batch_size,
-    class_mode='binary')
+    class_mode='categorical')
 print("Finished Data Prep: validation_generator")
 
 model = Sequential()
@@ -128,7 +129,7 @@ model.add(Activation('softmax'))
 print('Finished Building Network Architecture')
 
 # Let's train the model using RMSprop
-model.compile(loss='sparse_categorical_crossentropy',
+model.compile(loss='categorical_crossentropy',
               optimizer='rmsprop',
               metrics=['accuracy'])
 
