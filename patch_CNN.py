@@ -156,25 +156,65 @@ print("Model Saved")
 
 ##############################################################################
 # Plot metrics
+#
+# import numpy as np
+# import matplotlib.pyplot as plt
+# # Set up Directories
+# home = '/Users/matt/github/Keras-CompVis/'
+#
+# patch_images = '/data/Patches_ALL/'
+# validation_data_dir = home + 'data/Working_Sets_Patches/Validation/'
+# train_data_dir = home + 'data/Working_Sets_Patches/Training/'
+# test_data_dir = home + 'data/Working_Sets_Patches/Test/'
+# model_dir = home + 'cnn_models/patches_models/'
+# epochs = 3
+# model_fit = {'acc': [0.93260072515561032, 0.99044994907274064, 0.99357207977410522], 'loss': [0.39881912154237648, 0.099667203943591479, 0.047682550522824621], 'val_acc': [
+# 0.99944444398085275, 0.96046769692000411, 0.98886413729535971],
+# 'val_loss': [0.24718743686874708, 0.23444461379457424,
+# 0.067491092876778014]}
 
-# x = np.linspace(0, epochs)
-# plt.plots()
-#
-# ax.plot(x, model_fit.history['acc'], linewidth=2,
-#         label='Train Accuracy', color='red')
-#
-# ax.plot(x, model_fit.history['val_acc'], label='Val Accuracy', color='blue')
-#
-# ax.plot(x, model_fit.history['loss'], label='Train Loss', color='red')
-#
-# ax.plot(x, model_fit.history['val_loss'],
-#         label='Val Loss', linewidth=2, color='blue')
-#
-# ax.legend(loc='lower right')
-# plt.xlim(0, epochs)
-# plt.ylim(0, 1)
-# plt.xlabel('Epoch #')
-# plt.title('Test Metric')
-#
-# plt.savefig(model_dir, dpi=200, rasterized=True)
-# plt.close()
+# Set up x range
+x = range(1, epochs + 1)
+
+# start plot
+fig, ax1 = plt.subplots()
+
+# Plot Accuracy
+ax1.plot(x, model_fit.history['acc'], linewidth=2,
+         label='Train Accuracy', color='blue')
+
+ax1.plot(x, model_fit.history['val_acc'],
+         label='Val Accuracy', color='red')
+ax1.set_ylabel('Accuracy (%)')
+# Make the y-axis label, ticks and tick labels match the line color.
+ax1.set_xlabel('Epochs #')
+ax1.tick_params('y')
+ax1.set_ylim([0, 1])
+
+plt.legend(loc='right')
+
+# Plot Loss
+
+ax2 = ax1.twinx()
+
+ax2.plot(x, model_fit.history['loss'], label='Train', color='blue')
+
+ax2.plot(x, model_fit.history['val_loss'],
+         label='Validation', linewidth=2, color='red', linestyle='--')
+ax2.set_ylabel('Loss Metric', color='r')
+ax2.tick_params('y', colors='r')
+
+# second axis limits
+combine_loss = []
+combine_loss.append(model_fit.history['val_loss'])
+combine_loss.append(model_fit.history['loss'])
+ax2.set_ylim([0, max(max(combine_loss))])
+
+# adjust x axis
+plt.legend(loc='right')
+plt.xlim(1, epochs)
+plt.xticks(x)
+
+# save fig
+plt.savefig(model_dir + "Metric_Patch_CNN.png", dpi=200, rasterized=True)
+plt.close()
