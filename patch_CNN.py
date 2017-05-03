@@ -14,6 +14,7 @@ import graphviz
 # import pydot
 # import glob
 import cv2
+import matplotlib.pyplot as plt
 
 #######
 # Directories
@@ -25,6 +26,7 @@ home = '/home/grobeln2/git_files/Keras-CompVis/'
 #home = '/Users/matt/github/Keras-CompVis/'
 
 ########
+# Set up Directories
 patch_images = '/data/Patches_ALL/'
 validation_data_dir = home + 'data/Working_Sets_Patches/Validation/'
 train_data_dir = home + 'data/Working_Sets_Patches/Training/'
@@ -151,3 +153,32 @@ print("Model Saved")
 
 # # Save image of model /// pip install pydot-ng or pydot as sudo?
 # plot_model(model, to_file=home + 'patch_CNN_model.png', show_shapes=True)
+
+##############################################################################
+# Plot metrics
+
+x = np.linspace(0, epochs)
+fig, ax = plt.subplots()
+
+line1, = ax.plot(x, model_fit.history['acc'], '--', linewidth=2,
+                 label='Train Accuracy', color='red')
+line1.set_dashes(dashes)
+
+line2, = ax.plot(x, model_fit.history['val_acc'],
+                 label='Val Accuracy', color='blue')
+line2.set_dashes(dashes)
+
+line3, = ax.plot(x, model_fit.history['loss'],
+                 label='Train Loss', color='red')
+
+line4, = ax.plot(x, model_fit.history['val_loss'],
+                 label='Val Loss', '--', linewidth=2, color='blue')
+
+ax.legend(loc='lower right')
+plt.xlim(0, epochs)
+plt.ylim(0, 1)
+plt.xlabel('Epoch #')
+plt.title('Test Metric')
+
+plt.savefig(model_dir, dpi=200, rasterized=True)
+plt.close()
