@@ -47,7 +47,7 @@ model_dir = home + 'cnn_models/patches_models/'
 # label = []
 
 # Hyper parameters
-batch_size = 10
+batch_size = 200
 num_classes = 2
 epochs = 1
 
