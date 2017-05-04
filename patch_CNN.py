@@ -154,9 +154,11 @@ model.save_weights(model_dir + 'first_try.h5')
 
 print("Model Saved")
 
-# # Save image of model /// pip install pydot-ng or pydot as sudo?
-plot_model(model, to_file=home + 'patch_CNN_model.png', show_shapes=True)
+print("Saving Model Graphic...")
 
+# # Save image of model /// pip install pydot-ng or pydot as sudo?
+plot_model(model, to_file=model_dir + 'patch_CNN_model.png', show_shapes=True)
+print("Model graphic Saved")
 ##############################################################################
 # Plot metrics
 
