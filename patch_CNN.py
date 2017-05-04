@@ -145,7 +145,7 @@ model_fit = model.fit_generator(
     epochs=epochs,
     validation_data=validation_generator,
     validation_steps=nb_validation_samples // batch_size)
-print(model_fit.history)
+# print(model_fit.history)
 print("Finished Training")
 
 print("Saving Model...")
@@ -155,26 +155,10 @@ model.save_weights(model_dir + 'first_try.h5')
 print("Model Saved")
 
 # # Save image of model /// pip install pydot-ng or pydot as sudo?
-# plot_model(model, to_file=home + 'patch_CNN_model.png', show_shapes=True)
+plot_model(model, to_file=home + 'patch_CNN_model.png', show_shapes=True)
 
 ##############################################################################
 # Plot metrics
-#
-# import numpy as np
-# import matplotlib.pyplot as plt
-# # Set up Directories
-# home = '/Users/matt/github/Keras-CompVis/'
-#
-# patch_images = '/data/Patches_ALL/'
-# validation_data_dir = home + 'data/Working_Sets_Patches/Validation/'
-# train_data_dir = home + 'data/Working_Sets_Patches/Training/'
-# test_data_dir = home + 'data/Working_Sets_Patches/Test/'
-# model_dir = home + 'cnn_models/patches_models/'
-# epochs = 3
-# model_fit = {'acc': [0.93260072515561032, 0.99044994907274064, 0.99357207977410522], 'loss': [0.39881912154237648, 0.099667203943591479, 0.047682550522824621], 'val_acc': [
-# 0.99944444398085275, 0.96046769692000411, 0.98886413729535971],
-# 'val_loss': [0.24718743686874708, 0.23444461379457424,
-# 0.067491092876778014]}
 
 print("Plotting Metrics")
 # Set up x range
