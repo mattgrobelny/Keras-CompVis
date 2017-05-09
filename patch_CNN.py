@@ -71,7 +71,7 @@ nb_train_samples = 5475
 nb_validation_samples = 1826
 
 # Weight the empty space more as it is under represented
-#class_weight_dic = {'output': {0: 0.75, 1: 0.25}}
+# class_weight_dic = {'output': {0: 0.75, 1: 0.25}}
 
 print('Stating patch CNN')
 
@@ -266,11 +266,17 @@ model_predict = model.predict_generator(
     steps=10,
     max_q_size=1,
     pickle_safe=False)
-print(model_predict)
+# print(model_predict)
 
-report_fh = open(save_aug_pred_image_dir + "prediction_report", 'w')
-# # Prep Image Predition Report
-# image_list = glob.glob(save_aug_pred_image_dir + "*.jpg)
-# print("# --- Model evaluation Results --- #")
-# for i in range(len(model_predict)):
-#     print(model.metrics_names[i], ' --- ', model_eval[i])
+report_fh = open(save_aug_pred_image_dir + "prediction_report.csv", 'w')
+# Prep Image Predition Report
+image_list = glob.glob(save_aug_pred_image_dir + "*.jpg)
+
+print("Saveing Prediction Report...")
+report_fh.write("Image_name,GroundTruth, P_None_Nuc, P_Nuclei")
+for i in range(len(model_predict)):
+    image_name = image_list[i].split('/')[-1][0:-4]
+    image_cat = image_name.split('_')[-1]
+    report_fh.write(image_name, ",", image_cat, ",", model_predict[
+                    i][0], ",", model_predict[i][1])
+print("Done!")
