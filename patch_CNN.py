@@ -261,8 +261,8 @@ prediction_generator = datagen.flow_from_directory(
     target_size=(35, 35),
     batch_size=5,
     shuffle=False,
-    save_prefix=save_aug_pred_image_dir,
-    save_to_dir=)
+    save_prefix="aug_",
+    save_to_dir=save_aug_pred_image_dir)
 
 print("Finished Data Prep: prediction_generator")
 
@@ -275,8 +275,8 @@ model_predict = model.predict_generator(
     pickle_safe=False)
 print(model_predict)
 
-# Prep Image Predition Report
-image_list = glob.glob(image_location + jpg)
-print("# --- Model evaluation Results --- #")
-for i in range(len(model_predict)):
-    print(model.metrics_names[i], ' --- ', model_eval[i])
+# # Prep Image Predition Report
+# image_list = glob.glob(save_aug_pred_image_dir + "*.jpg)
+# print("# --- Model evaluation Results --- #")
+# for i in range(len(model_predict)):
+#     print(model.metrics_names[i], ' --- ', model_eval[i])
