@@ -140,7 +140,6 @@ model.compile(loss='categorical_crossentropy',
 print("Starting Training")
 model_fit = model.fit_generator(
     train_generator,
-    workers=40,
     steps_per_epoch=nb_train_samples // batch_size,
     epochs=epochs,
     validation_data=validation_generator,
@@ -235,13 +234,13 @@ model_eval = model.evaluate_generator(evalution_generator, steps_eval, max_q_siz
                                       workers=10, pickle_safe=False)
 
 print("# --- Model evaluation Results --- #")
-for i in len(model.metrics_names):
+for i in range(len(model.metrics_names)):
     print(model.metrics_names[i], ' --- ', model_eval[i])
 
 ##################################################
 # Run prediction test on a subset of images (10)
-
-print("running model prediction test")
+print("")
+print("Running model prediction test..")
 datagen_only_flip = ImageDataGenerator(
     # featurewise_center=True,
     # featurewise_std_normalization=True,
