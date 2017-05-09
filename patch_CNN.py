@@ -216,7 +216,7 @@ print("DONE!")
 
 ##############################################################################
 # Model evaulation and predition code
-steps_eval = 5
+steps_eval = 10
 
 print("Starting model evalution and predition test")
 
@@ -259,7 +259,7 @@ prediction_generator = datagen.flow_from_directory(
     prediction_data_dir,
     color_mode='rgb',
     target_size=(35, 35),
-    batch_size=5,
+    batch_size=1,
     shuffle=False,
     save_prefix="aug_",
     save_to_dir=save_aug_pred_image_dir)
@@ -270,8 +270,8 @@ print("running model prediction test...")
 print("prediction data dir: " + prediction_data_dir)
 model_predict = model.predict_generator(
     prediction_generator,
-    steps=1,
-    max_q_size=5,
+    steps=10,
+    max_q_size=1,
     pickle_safe=False)
 print(model_predict)
 
