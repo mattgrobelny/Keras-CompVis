@@ -39,7 +39,7 @@ prediction_data_dir = home + 'data/Working_Sets_Patches/Prediction/'
 model_dir = home + 'cnn_models/patches_models/'
 save_aug_pred_image_dir = home + 'data/Working_Sets_Patches/Pred_augmented_images/'
 prediction_report_images_dir = home + \
-    'data/Working_Sets_Patches/Prediction/Images_For_Prediction'
+    'data/Working_Sets_Patches/Prediction/Images_For_Prediction/'
 # # string for glob to produce list of files only .jpgs
 # glob_dir = home + patch_images + '*.jpg'
 # # print glob_dir
