@@ -241,6 +241,7 @@ for i in range(len(model.metrics_names)):
 # Run prediction test on a subset of images (10)
 print("")
 print("Running model prediction test..")
+
 datagen_only_flip = ImageDataGenerator(
     # featurewise_center=True,
     # featurewise_std_normalization=True,
@@ -256,14 +257,13 @@ prediction_generator = datagen_only_flip.flow_from_directory(
     prediction_data_dir,
     color_mode='rgb',
     target_size=(35, 35),
-    batch_size=batch_size,
-    class_mode='categorical',
+    batch_size=10,
     shuffle=False)
 
 print("Finished Data Prep: prediction_generator")
 
 print("running model prediction test...")
 print("prediction data =" + prediction_data_dir)
-model_predict = model.predict_generator(prediction_generator, 1, max_q_size=10,
-                                        workers=10, pickle_safe=False)
+model_predict = model.predict_generator(
+    prediction_generator, 1, max_q_size=10, pickle_safe=False)
 print(model_predict)
