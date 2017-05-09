@@ -17,6 +17,7 @@ import cv2
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import glob
 
 
 #######
@@ -257,7 +258,7 @@ prediction_generator = datagen_only_flip.flow_from_directory(
     prediction_data_dir,
     color_mode='rgb',
     target_size=(35, 35),
-    batch_size=10,
+    batch_size=5,
     shuffle=False)
 
 print("Finished Data Prep: prediction_generator")
@@ -265,7 +266,14 @@ print("Finished Data Prep: prediction_generator")
 print("running model prediction test...")
 print("prediction data dir: " + prediction_data_dir)
 model_predict = model.predict_generator(
-    prediction_generator, 1,
-    # max_q_size=10,
+    prediction_generator,
+    steps=1,
+    max_q_size=5,
     pickle_safe=False)
 print(model_predict)
+
+# Prep Image Predition Report
+image_list = glob.glob(image_location + jpg)
+print("# --- Model evaluation Results --- #")
+for i in range(len(model_predict)):
+    print(model.metrics_names[i], ' --- ', model_eval[i])
