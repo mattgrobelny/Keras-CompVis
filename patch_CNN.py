@@ -263,7 +263,9 @@ prediction_generator = datagen_only_flip.flow_from_directory(
 print("Finished Data Prep: prediction_generator")
 
 print("running model prediction test...")
-print("prediction data =" + prediction_data_dir)
+print("prediction data dir: " + prediction_data_dir)
 model_predict = model.predict_generator(
-    prediction_generator, 1, max_q_size=10, pickle_safe=False)
+    prediction_generator, 1,
+    # max_q_size=10,
+    pickle_safe=False)
 print(model_predict)
