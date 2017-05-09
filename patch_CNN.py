@@ -233,12 +233,13 @@ print("running model evaluation...")
 # Model evaluate function
 model_eval = model.evaluate_generator(evalution_generator, steps_eval, max_q_size=10,
                                       workers=10, pickle_safe=False)
-print(model.metrics_names)
-print(model_eval)
 
+print("# --- Model evaluation Results --- #")
+for i in len(model.metrics_names):
+    print(model.metrics_names[i], ' --- ', model_eval[i])
 
 ##################################################
-# Run prediction test on a subset of images
+# Run prediction test on a subset of images (10)
 
 print("running model prediction test")
 datagen_only_flip = ImageDataGenerator(
@@ -252,7 +253,7 @@ datagen_only_flip = ImageDataGenerator(
 # channel_shift_range=100)
 # Models prediction test generator
 
-prediction_generator = datagen_no_changes.flow_from_directory(
+prediction_generator = datagen_only_flip.flow_from_directory(
     prediction_data_dir,
     color_mode='rgb',
     target_size=(35, 35),
