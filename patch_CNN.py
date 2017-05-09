@@ -140,7 +140,7 @@ model.compile(loss='categorical_crossentropy',
 print("Starting Training")
 model_fit = model.fit_generator(
     train_generator,
-    workers=40
+    workers=40,
     steps_per_epoch=nb_train_samples // batch_size,
     epochs=epochs,
     validation_data=validation_generator,
