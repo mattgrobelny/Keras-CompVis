@@ -27,7 +27,7 @@ import glob
 home = '/home/grobeln2/git_files/Keras-CompVis/'
 
 # Mac
-#home = '/Users/matt/github/Keras-CompVis/'
+# home = '/Users/matt/github/Keras-CompVis/'
 
 ########
 # Set up Directories
@@ -71,7 +71,7 @@ nb_train_samples = 5475
 nb_validation_samples = 1826
 
 # Weight the empty space more as it is under represented
-class_weight_dic = {0: 0.75, 1: 0.25}
+class_weight_dic = {{'output': {0: 0.75, 1: 0.25}}
 
 print('Stating patch CNN')
 
