@@ -37,6 +37,7 @@ train_data_dir = home + 'data/Working_Sets_Patches/Training/'
 evaulate_data_dir = home + 'data/Working_Sets_Patches/Test/'
 prediction_data_dir = home + 'data/Working_Sets_Patches/Prediction/'
 model_dir = home + 'cnn_models/patches_models/'
+save_aug_pred_image_dir = home + 'data/Working_Sets_Patches/Pred_augmented_images/'
 
 # # string for glob to produce list of files only .jpgs
 # glob_dir = home + patch_images + '*.jpg'
@@ -243,23 +244,25 @@ for i in range(len(model.metrics_names)):
 print("")
 print("Running model prediction test..")
 
-datagen_only_flip = ImageDataGenerator(
-    # featurewise_center=True,
-    # featurewise_std_normalization=True,
-    # rotation_range=20,
-    # width_shift_range=0.2,
-    # height_shift_range=0.2,
-    horizontal_flip=True,
-    vertical_flip=True)
-# channel_shift_range=100)
+# datagen_only_flip = ImageDataGenerator(
+#     # featurewise_center=True,
+#     # featurewise_std_normalization=True,
+#     # rotation_range=20,
+#     # width_shift_range=0.2,
+#     # height_shift_range=0.2,
+#     horizontal_flip=True,
+#     vertical_flip=True)
+#    channel_shift_range=100)
 # Models prediction test generator
 
-prediction_generator = datagen_only_flip.flow_from_directory(
+prediction_generator = datagen.flow_from_directory(
     prediction_data_dir,
     color_mode='rgb',
     target_size=(35, 35),
     batch_size=5,
-    shuffle=False)
+    shuffle=False,
+    save_prefix=save_aug_pred_image_dir,
+    save_to_dir=)
 
 print("Finished Data Prep: prediction_generator")
 
