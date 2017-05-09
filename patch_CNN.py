@@ -140,6 +140,7 @@ model.compile(loss='categorical_crossentropy',
 print("Starting Training")
 model_fit = model.fit_generator(
     train_generator,
+    workers=40
     steps_per_epoch=nb_train_samples // batch_size,
     epochs=epochs,
     validation_data=validation_generator,
@@ -232,8 +233,10 @@ print("running model evaluation...")
 # Model evaluate function
 model_eval = model.evaluate_generator(evalution_generator, steps_eval, max_q_size=10,
                                       workers=10, pickle_safe=False)
+print(model.metrics_names)
 print(model_eval)
-print(model_eval.metrics_names)
+
+
 ##################################################
 # Run prediction test on a subset of images
 
