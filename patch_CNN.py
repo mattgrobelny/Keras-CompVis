@@ -270,7 +270,7 @@ model_predict = model.predict_generator(
 
 report_fh = open(save_aug_pred_image_dir + "prediction_report.csv", 'w')
 # Prep Image Predition Report
-image_list = glob.glob(save_aug_pred_image_dir + "*.jpg)
+image_list = glob.glob(save_aug_pred_image_dir + "*.jpg")
 
 print("Saveing Prediction Report...")
 report_fh.write("Image_name,GroundTruth, P_None_Nuc, P_Nuclei")
