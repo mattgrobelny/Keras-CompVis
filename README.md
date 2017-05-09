@@ -40,8 +40,11 @@ Data set used to train network (60%)
 Validation:
 periodically during training check (20%) --> Check for Overfitting
 
-Test set:
-only use to evaluate progress (20%)
+Evaluate set:
+only use to evaluate progress (20%) - 10 images
+
+Predict test:
+10 images from evaluate set
 
 #### Patch prep
 - Total Images annotated: 230

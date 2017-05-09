@@ -33,7 +33,8 @@ home = '/home/grobeln2/git_files/Keras-CompVis/'
 patch_images = '/data/Patches_ALL/'
 validation_data_dir = home + 'data/Working_Sets_Patches/Validation/'
 train_data_dir = home + 'data/Working_Sets_Patches/Training/'
-test_data_dir = home + 'data/Working_Sets_Patches/Test/'
+evaulate_data_dir = home + 'data/Working_Sets_Patches/Test/'
+prediction_data_dir = home + 'data/Working_Sets_Patches/Prediction/'
 model_dir = home + 'cnn_models/patches_models/'
 # (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 # y_train = np_utils.to_categorical(y_train, num_classes)
@@ -69,6 +70,7 @@ nb_train_samples = 5475
 
 # number of training samples
 nb_validation_samples = 1826
+
 
 print('Stating patch CNN')
 
@@ -211,3 +213,55 @@ plt.close()
 print("Plot Saved as:")
 print(model_dir + "Metric_Patch_CNN.jpg")
 print("DONE!")
+
+
+##############################################################################
+# Model evaulation and predition code
+steps_eval = 5
+
+print("Starting model evalution and predition test")
+
+# Model evaluate data generator
+evalution_generator = datagen.flow_from_directory(
+    evaulate_data_dir,
+    color_mode='rgb',
+    target_size=(35, 35),
+    batch_size=batch_size,
+    class_mode='categorical')
+
+print("Finished Data Prep: evalution_generator")
+
+print("running model evaluation...")
+# Model evaluate function
+model_eval = model.evaluate_generator(evalution_generator, steps_eval, max_q_size=10,
+                                      workers=10, pickle_safe=False)
+
+##################################################
+# Run prediction test on a subset of images
+
+print("running model prediction test")
+datagen_no_changes = ImageDataGenerator()
+# featurewise_center=True,
+# featurewise_std_normalization=True,
+# rotation_range=20,
+# width_shift_range=0.2,
+# height_shift_range=0.2,
+# horizontal_flip=True,
+# vertical_flip=True,
+# channel_shift_range=100)
+# Models prediction test generator
+
+prediction_generator = datagen_no_changes.flow_from_directory(
+    prediction_data_dir,
+    color_mode='rgb',
+    target_size=(35, 35),
+    batch_size=batch_size,
+    class_mode='categorical')
+
+print("Finished Data Prep: prediction_generator")
+
+print("running model prediction test...")
+print("prediction data =" + prediction_data_dir)
+model_predict = model.predict_generator(prediction_generator, 1, max_q_size=10,
+                                        workers=10, pickle_safe=False, verbose=1)
+print(model_predict)
