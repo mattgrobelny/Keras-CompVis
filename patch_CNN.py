@@ -258,7 +258,7 @@ prediction_generator = datagen_only_flip.flow_from_directory(
     target_size=(35, 35),
     batch_size=batch_size,
     class_mode='categorical',
-    shuffle=FALSE)
+    shuffle=False)
 
 print("Finished Data Prep: prediction_generator")
 
