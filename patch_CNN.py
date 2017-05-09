@@ -38,7 +38,8 @@ evaulate_data_dir = home + 'data/Working_Sets_Patches/Test/'
 prediction_data_dir = home + 'data/Working_Sets_Patches/Prediction/'
 model_dir = home + 'cnn_models/patches_models/'
 save_aug_pred_image_dir = home + 'data/Working_Sets_Patches/Pred_augmented_images/'
-
+prediction_report_images_dir = home + \
+    'data/Working_Sets_Patches/Prediction/Images_For_Prediction'
 # # string for glob to produce list of files only .jpgs
 # glob_dir = home + patch_images + '*.jpg'
 # # print glob_dir
@@ -270,8 +271,7 @@ print(model_predict)
 
 report_fh = open(save_aug_pred_image_dir + "prediction_report.csv", 'w')
 # Prep Image Predition Report
-image_list = glob.glob(prediction_data_dir +
-                       'Images_For_Prediction/ ' + "*.jpg")
+image_list = glob.glob(prediction_report_images_dir)
 print(image_list)
 print("Saveing Prediction Report...")
 report_fh.write("Image Dir,Image_name,GroundTruth, P_None_Nuc, P_Nuclei")
