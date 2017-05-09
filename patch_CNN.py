@@ -71,7 +71,7 @@ nb_train_samples = 5475
 nb_validation_samples = 1826
 
 # Weight the empty space more as it is under represented
-class_weight_dic = {'output': {0: 0.75, 1: 0.25}}
+#class_weight_dic = {'output': {0: 0.75, 1: 0.25}}
 
 print('Stating patch CNN')
 
@@ -148,7 +148,8 @@ model_fit = model.fit_generator(
     epochs=epochs,
     validation_data=validation_generator,
     validation_steps=nb_validation_samples // batch_size,
-    class_weight=class_weight_dic)
+    # class_weight=class_weight_dic
+)
 # print(model_fit.history)
 print("Finished Training")
 
