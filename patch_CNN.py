@@ -70,6 +70,8 @@ nb_train_samples = 5475
 # number of training samples
 nb_validation_samples = 1826
 
+# Weight the empty space more as it is under represented
+class_weight_dic = {'0': 0.75, '1': 0.25}
 
 print('Stating patch CNN')
 
@@ -145,7 +147,8 @@ model_fit = model.fit_generator(
     steps_per_epoch=nb_train_samples // batch_size,
     epochs=epochs,
     validation_data=validation_generator,
-    validation_steps=nb_validation_samples // batch_size)
+    validation_steps=nb_validation_samples // batch_size,
+    class_weight=class_weight_dic)
 # print(model_fit.history)
 print("Finished Training")
 
@@ -244,17 +247,6 @@ for i in range(len(model.metrics_names)):
 print("")
 print("Running model prediction test..")
 
-# datagen_only_flip = ImageDataGenerator(
-#     # featurewise_center=True,
-#     # featurewise_std_normalization=True,
-#     # rotation_range=20,
-#     # width_shift_range=0.2,
-#     # height_shift_range=0.2,
-#     horizontal_flip=True,
-#     vertical_flip=True)
-#    channel_shift_range=100)
-# Models prediction test generator
-
 prediction_generator = datagen.flow_from_directory(
     prediction_data_dir,
     color_mode='rgb',
@@ -275,6 +267,7 @@ model_predict = model.predict_generator(
     pickle_safe=False)
 print(model_predict)
 
+report_fh = open(save_aug_pred_image_dir + "prediction_report", 'w')
 # # Prep Image Predition Report
 # image_list = glob.glob(save_aug_pred_image_dir + "*.jpg)
 # print("# --- Model evaluation Results --- #")
