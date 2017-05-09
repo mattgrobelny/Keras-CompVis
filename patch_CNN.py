@@ -271,13 +271,13 @@ print(model_predict)
 
 report_fh = open(save_aug_pred_image_dir + "prediction_report.csv", 'w')
 # Prep Image Predition Report
-image_list = glob.glob(prediction_report_images_dir)
+image_list = glob.glob(prediction_report_images_dir + '*.jpg')
 print(image_list)
 print("Saveing Prediction Report...")
 report_fh.write("Image Dir,Image_name,GroundTruth, P_None_Nuc, P_Nuclei")
 for i in range(len(model_predict)):
     image_name = image_list[i].split('/')[-1][0:-4]
     image_cat = image_name.split('_')[-1]
-    report_fh.write(image_list[i], ',', image_name, ",", image_cat, ",",
-                    model_predict[i][0], ",", model_predict[i][1])
+    report_fh.write("%s,%s,%s,%s,%s" % (image_list[i], image_name, image_cat,
+                                        model_predict[i][0], model_predict[i][1]))
 print("Done!")
