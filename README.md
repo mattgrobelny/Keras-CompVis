@@ -79,4 +79,3 @@ https://github.com/fchollet/keras/blob/master/examples/cifar10_cnn.py
 ## Pipeline
 1. Annotate cell images `click_label.py`  
 2. Create patches of cells and none cell regions from annotate cell locations `patch_prep.py`
-3.

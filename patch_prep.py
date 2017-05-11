@@ -130,7 +130,7 @@ def output_patches(location_cell_csv, cell_location_csv, image_location, patch_l
                         # Save images if max pixel intenisty is bellow 100
                         if blank_img.getextrema()[1] < exm_pix:
                             blank_img.save(patch_location + image_name +
-                                           "_Patch_" + str(none_count) + "_CX_0_" + ".jpg")
+                                           "_Patch_" + str(none_count) + "_CX_0" + ".jpg")
                         else:
                             continue
                 else:

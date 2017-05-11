@@ -52,7 +52,7 @@ img_height = 35
 
 # input_shape=(128, 128, 3) for 128x128 RGB pictures in
 # data_format="channels_last".
-input_shape_image = (35, 35, 3)
+input_shape_image = (100, 100, 3)
 
 # number of training samples
 nb_train_samples = 5475
