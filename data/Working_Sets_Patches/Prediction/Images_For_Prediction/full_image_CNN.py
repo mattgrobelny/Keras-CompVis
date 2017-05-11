@@ -185,14 +185,13 @@ print("Finished Training")
 
 print("Saving Model...")
 
-model.save_weights(model_dir + 'patchcnn_Full_arch.h5')
-
+model.save_weights(model_dir + prefix_out + '.h5')
 print("Model Saved")
 
 print("Saving Model Graphic...")
 
 # # Save image of model /// pip install pydot-ng or pydot as sudo?
-plot_model(model, to_file=model_dir + 'patch_CNN_model.png', show_shapes=True)
+plot_model(model, to_file=model_dir + prefix_out + '.png', show_shapes=True)
 print("Model graphic Saved")
 ##############################################################################
 # Plot metrics
@@ -241,11 +240,11 @@ plt.xlim(1, epochs)
 plt.xticks(x)
 
 # save fig
-plt.savefig(model_dir + "patchcnn_Full_arch_Metric_Patch_CNN.jpg",
+plt.savefig(model_dir + prefix_out + "_Metric.jpg",
             dpi=200, rasterized=True)
 plt.close()
 print("Plot Saved as:")
-print(model_dir + "patchcnn_Full_arch_Metric_Patch_CNN.jpg")
+print(model_dir + prefix_out + "_Metric.jpg")
 print("DONE!")
 
 
@@ -259,7 +258,7 @@ print("Starting model evalution and predition test")
 evalution_generator = datagen.flow_from_directory(
     evaulate_data_dir,
     color_mode='rgb',
-    target_size=(100, 100),
+    target_size=(desired_image_dim, desired_image_dim),
     batch_size=batch_size,
     class_mode='categorical')
 
@@ -282,7 +281,7 @@ print("Running model prediction test..")
 prediction_generator = datagen.flow_from_directory(
     prediction_data_dir,
     color_mode='rgb',
-    target_size=(100, 100),
+    target_size=(desired_image_dim, desired_image_dim),
     batch_size=1,
     shuffle=False,
     save_prefix="aug_",
@@ -302,7 +301,7 @@ print(model_predict)
 ##################################################
 # Prep Image Predition Report CSV
 report_fh = open(prediction_report_images_dir +
-                 "patchcnn_Full_arch_prediction_report.csv", 'w')
+                 prefix_out + "_Report.csv", 'w')
 image_list = glob.glob(prediction_report_images_dir + '*.jpg')
 
 # print(image_list)
@@ -320,7 +319,7 @@ report_fh.close()
 ##################################################
 # Prep Image Predition Report Markdown
 report_fh = open(prediction_report_images_dir +
-                 "patchcnn_Full_arch_prediction_report.md", 'w')
+                 prefix_out + "_Report.md", 'w')
 image_list = glob.glob(prediction_report_images_dir + '*.jpg')
 
 # print(image_list)

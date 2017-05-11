@@ -40,9 +40,11 @@ model_dir = home + 'cnn_models/patches_models_Full_Arc_test/'
 save_aug_pred_image_dir = home + 'data/Working_Sets_Patches/Pred_augmented_images/'
 prediction_report_images_dir = home + \
     'data/Working_Sets_Patches/Prediction/Images_For_Prediction/'
+# outfiles prefix
+prefix_out = "full_images_CNN"
 
 # Hyper parameters
-batch_size = 30
+batch_size = 10
 num_classes = 2
 epochs = 10
 
@@ -52,13 +54,14 @@ img_height = 35
 
 # input_shape=(128, 128, 3) for 128x128 RGB pictures in
 # data_format="channels_last".
-input_shape_image = (100, 100, 3)
+desired_image_dim = 100  # such that width == height
+input_shape_image = (desired_image_dim, desired_image_dim, 3)
 
 # number of training samples
-nb_train_samples = 5475
+nb_train_samples = 84
 
 # number of training samples
-nb_validation_samples = 1826
+nb_validation_samples = 28
 
 # Weight the empty space more as it is under represented
 # class_weight_dic = {'output': {0: 0.75, 1: 0.25}}
@@ -80,7 +83,7 @@ print("Starting Data Prep")
 train_generator = datagen.flow_from_directory(
     train_data_dir,
     color_mode='rgb',
-    target_size=(100, 100),
+    target_size=(desired_image_dim, desired_image_dim),
     batch_size=batch_size,
     class_mode='categorical')
 print("Finished Data Prep: train_generator")
@@ -88,7 +91,7 @@ print("Finished Data Prep: train_generator")
 validation_generator = datagen.flow_from_directory(
     validation_data_dir,
     color_mode='rgb',
-    target_size=(100, 100),
+    target_size=(desired_image_dim, desired_image_dim),
     batch_size=batch_size,
     class_mode='categorical')
 print("Finished Data Prep: validation_generator")
@@ -169,14 +172,13 @@ print("Finished Training")
 
 print("Saving Model...")
 
-model.save_weights(model_dir + 'patchcnn_Full_arch.h5')
-
+model.save_weights(model_dir + prefix_out + '.h5')
 print("Model Saved")
 
 print("Saving Model Graphic...")
 
 # # Save image of model /// pip install pydot-ng or pydot as sudo?
-plot_model(model, to_file=model_dir + 'patch_CNN_model.png', show_shapes=True)
+plot_model(model, to_file=model_dir + prefix_out + '.png', show_shapes=True)
 print("Model graphic Saved")
 ##############################################################################
 # Plot metrics
@@ -225,11 +227,11 @@ plt.xlim(1, epochs)
 plt.xticks(x)
 
 # save fig
-plt.savefig(model_dir + "patchcnn_Full_arch_Metric_Patch_CNN.jpg",
+plt.savefig(model_dir + prefix_out + "_Metric.jpg",
             dpi=200, rasterized=True)
 plt.close()
 print("Plot Saved as:")
-print(model_dir + "patchcnn_Full_arch_Metric_Patch_CNN.jpg")
+print(model_dir + prefix_out + "_Metric.jpg")
 print("DONE!")
 
 
@@ -243,7 +245,7 @@ print("Starting model evalution and predition test")
 evalution_generator = datagen.flow_from_directory(
     evaulate_data_dir,
     color_mode='rgb',
-    target_size=(100, 100),
+    target_size=(desired_image_dim, desired_image_dim),
     batch_size=batch_size,
     class_mode='categorical')
 
@@ -266,7 +268,7 @@ print("Running model prediction test..")
 prediction_generator = datagen.flow_from_directory(
     prediction_data_dir,
     color_mode='rgb',
-    target_size=(100, 100),
+    target_size=(desired_image_dim, desired_image_dim),
     batch_size=1,
     shuffle=False,
     save_prefix="aug_",
@@ -286,7 +288,7 @@ print(model_predict)
 ##################################################
 # Prep Image Predition Report CSV
 report_fh = open(prediction_report_images_dir +
-                 "patchcnn_Full_arch_prediction_report.csv", 'w')
+                 prefix_out + "_Report.csv", 'w')
 image_list = glob.glob(prediction_report_images_dir + '*.jpg')
 
 # print(image_list)
@@ -304,7 +306,7 @@ report_fh.close()
 ##################################################
 # Prep Image Predition Report Markdown
 report_fh = open(prediction_report_images_dir +
-                 "patchcnn_Full_arch_prediction_report.md", 'w')
+                 prefix_out + "_Report.md", 'w')
 image_list = glob.glob(prediction_report_images_dir + '*.jpg')
 
 # print(image_list)
