@@ -60,7 +60,7 @@ img_height = 520
 
 # input_shape=(128, 128, 3) for 128x128 RGB pictures in
 # data_format="channels_last".
-desired_image_dim = 100  # such that width == height
+desired_image_dim = 400  # such that width == height
 input_shape_image = (desired_image_dim, desired_image_dim, 3)
 
 
@@ -223,17 +223,8 @@ model.add(Activation('relu'))
 model.add(Conv2D(32, (3, 3)))
 
 # # Final Layer
-# 2D Conv 5
-#model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Flatten())
-# model.add(Reshape((100, 100)))
-# model.add(Conv2D(1, (3, 3)))
 model.add(Dense(1, activation="linear", kernel_initializer="uniform"))
-
-# model.add(Flatten())
-# #model.add(Dense(100))
-# model.add(Activation('softmax'))
-# print(model.layers)
 
 print('Finished Building Network Architecture')
 
@@ -369,7 +360,7 @@ model_predict = model.predict_generator(
     prediction_generator,
     steps=10,
     max_q_size=1,
-    pickle_safe=False)
+    pickle_safe=True)
 print(model_predict)
 
 ##################################################
