@@ -41,7 +41,7 @@ save_aug_pred_image_dir = home + 'data/Working_Sets_Patches/Pred_augmented_image
 prediction_report_images_dir = home + \
     'data/Working_Sets_Patches/Prediction/Images_For_Prediction/'
 # outfiles prefix
-prefix_out = "full_images_CNN"
+prefix_out = "patch_images_CNN"
 
 # Hyper parameters
 batch_size = 30
@@ -58,7 +58,7 @@ desired_image_dim = 100  # such that width == height
 input_shape_image = (desired_image_dim, desired_image_dim, 3)
 
 # number of training samples
-nb_train_samples = 84
+nb_train_samples = 5475
 
 # number of training samples
 nb_validation_samples = 28

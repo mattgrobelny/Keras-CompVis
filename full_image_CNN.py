@@ -11,7 +11,7 @@ from PIL import Image
 import numpy as np
 import h5py
 import graphviz
-# import pydot
+#import pydot
 # import glob
 import cv2
 import matplotlib
@@ -27,7 +27,7 @@ import glob
 home = '/home/grobeln2/git_files/Keras-CompVis/'
 
 # Mac
-# home = '/Users/matt/github/Keras-CompVis/'
+#home = '/Users/matt/github/Keras-CompVis/'
 
 ########
 # Set up Directories
@@ -44,6 +44,10 @@ prediction_report_images_dir = home + \
 mask_Train_dir = home + 'data/Working_Sets_Full_Images/Masks/Training'
 mask_Validation_dir = home + 'data/Working_Sets_Full_Images/Masks/Validation'
 mask_evalutaion_dir = home + 'data/Working_Sets_Full_Images/Masks/Test'
+
+# prefix for outfile labels
+prefix_out = "full_images_CNN"
+
 # Hyper parameters
 batch_size = 10
 num_classes = 2
@@ -61,10 +65,10 @@ input_shape_image = (desired_image_dim, desired_image_dim, 3)
 
 
 # number of training samples
-nb_train_samples = 5475
+nb_train_samples = 84
 
 # number of training samples
-nb_validation_samples = 1826
+nb_validation_samples = 28
 
 # Weight the empty space more as it is under represented
 # class_weight_dic = {'output': {0: 0.75, 1: 0.25}}
@@ -126,7 +130,7 @@ train_generator = datagen.flow_from_directory(
     color_mode='rgb',
     target_size=(desired_image_dim, desired_image_dim),
     batch_size=batch_size,
-    class_mode=None)
+    class_mode='sparse')
 print("Finished Data Prep: train_generator")
 
 validation_generator = datagen.flow_from_directory(
@@ -134,7 +138,7 @@ validation_generator = datagen.flow_from_directory(
     color_mode='rgb',
     target_size=(desired_image_dim, desired_image_dim),
     batch_size=batch_size,
-    class_mode=None)
+    class_mode='sparse')
 print("Finished Data Prep: validation_generator")
 
 
@@ -180,6 +184,7 @@ model.add(Activation('softmax'))
 
 # load the weights - From patch training
 model.load_weights(model_dir + 'patchcnn_Full_arch.h5')
+# print(model.outputs)
 
 # pop last six layers to adjust for heatmap output
 model.layers.pop()
@@ -188,17 +193,10 @@ model.layers.pop()
 model.layers.pop()
 model.layers.pop()
 model.layers.pop()
-model.layers.pop()
-model.layers.pop()
-
-print(model.layers)
-# model compile
-model.compile(loss='mean_squared_error',
-              optimizer='sgd',
-              metrics=['accuracy'])
-
+model.outputs.pop()
+# https://github.com/fchollet/keras/issues/871
 # FC
-model.add(Conv2D(512, (3, 3)))
+model.add(Conv2D(512, (3, 3), input_shape=input_shape_image))
 model.add(Activation('relu'))
 
 # UpSampling 1
@@ -218,29 +216,36 @@ model.add(Conv2D(32, (3, 3)))
 
 # # Final Layer
 # 2D Conv 5
-model.add(MaxPooling2D(pool_size=(3, 3)))
-model.add(Conv2D(1, (3, 3)))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Flatten())
+#model.add(Conv2D(1, (3, 3)))
 model.add(Activation('relu'))
-model.add(Dense(100, 1, init='uniform', activation='linear'))
+model.add(Dense(1, activation="linear", kernel_initializer="uniform"))
 
 # model.add(Flatten())
 # #model.add(Dense(100))
 # model.add(Activation('softmax'))
-print(model.layers)
+# print(model.layers)
 
 print('Finished Building Network Architecture')
+
 
 # model compile
 model.compile(loss='mean_squared_error',
               optimizer='sgd',
               metrics=['accuracy'])
 
+print("Saving Model Graphic...")
+
+# # Save image of model /// pip install pydot-ng or pydot as sudo?
+plot_model(model, to_file=model_dir + prefix_out + '.png', show_shapes=True)
+print("Model graphic Saved")
 print("Starting Training")
 model_fit = model.fit_generator(
-    train_generator_w_mask,
+    train_generator,
     steps_per_epoch=nb_train_samples // batch_size,
     epochs=epochs,
-    validation_data=validation_generator_w_mask,
+    validation_data=validation_generator,
     validation_steps=nb_validation_samples // batch_size,
     # class_weight=class_weight_dic
 )
@@ -253,11 +258,6 @@ print("Saving Model...")
 model.save_weights(model_dir + prefix_out + '.h5')
 print("Model Saved")
 
-print("Saving Model Graphic...")
-
-# # Save image of model /// pip install pydot-ng or pydot as sudo?
-plot_model(model, to_file=model_dir + prefix_out + '.png', show_shapes=True)
-print("Model graphic Saved")
 ##############################################################################
 # Plot metrics
 
