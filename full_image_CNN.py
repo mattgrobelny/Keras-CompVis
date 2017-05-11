@@ -226,7 +226,7 @@ model.add(Conv2D(32, (3, 3)))
 # 2D Conv 5
 #model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Flatten())
-model.add(Reshape((100, 100, 1)))
+model.add(Reshape((100, 100)))
 # model.add(Conv2D(1, (3, 3)))
 model.add(Dense(1, activation="linear", kernel_initializer="uniform"))
 
