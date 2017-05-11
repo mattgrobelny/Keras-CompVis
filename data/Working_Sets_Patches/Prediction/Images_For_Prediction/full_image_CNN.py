@@ -32,17 +32,18 @@ home = '/home/grobeln2/git_files/Keras-CompVis/'
 ########
 # Set up Directories
 patch_images = '/data/Patches_ALL/'
-validation_data_dir = home + 'data/Working_Sets_Patches/Validation/'
-train_data_dir = home + 'data/Working_Sets_Patches/Training/'
-evaulate_data_dir = home + 'data/Working_Sets_Patches/Test/'
-prediction_data_dir = home + 'data/Working_Sets_Patches/Prediction/'
+validation_data_dir = home + 'data/Working_Sets_Full_Images/Validation/'
+train_data_dir = home + 'data/Working_Sets_Full_Images/Training/'
+evaulate_data_dir = home + 'data/Working_Sets_Full_Images/Test/'
+prediction_data_dir = home + 'data/Working_Sets_Full_Images/Prediction/'
 model_dir = home + 'cnn_models/patches_models_Full_Arc_test/'
-save_aug_pred_image_dir = home + 'data/Working_Sets_Patches/Pred_augmented_images/'
+save_aug_pred_image_dir = home + \
+    'data/Working_Sets_Full_Images/Pred_augmented_images/'
 prediction_report_images_dir = home + \
-    'data/Working_Sets_Patches/Prediction/Images_For_Prediction/'
-mask_Train_dir = home + 'data/Working_Sets_Patches/Masks/Training'
-mask_Validation_dir = home + 'data/Working_Sets_Patches/Masks/Validation'
-mask_evalutaion_dir = home + 'data/Working_Sets_Patches/Masks/Test'
+    'data/Working_Sets_Full_Images/Prediction/Images_For_Prediction/'
+mask_Train_dir = home + 'data/Working_Sets_Full_Images/Masks/Training'
+mask_Validation_dir = home + 'data/Working_Sets_Full_Images/Masks/Validation'
+mask_evalutaion_dir = home + 'data/Working_Sets_Full_Images/Masks/Test'
 # Hyper parameters
 batch_size = 10
 num_classes = 2
@@ -80,44 +81,44 @@ datagen = ImageDataGenerator(
     vertical_flip=True,
     channel_shift_range=100)
 
-print("Starting Data Prep")
-########################################################
-# Prep training data and mask
-train_generator = datagen.flow_from_directory(
-    train_data_dir,
-    color_mode='rgb',
-    target_size=(desired_image_dim, desired_image_dim),
-    batch_size=batch_size,
-    class_mode=None)
-print("Finished Data Prep: train_generator")
-
-mask_generator_train = datagen.flow_from_directory(
-    mask_Train_dir,
-    class_mode=None,
-    seed=seed)
-
-# combine generators into one which yields image and masks
-train_generator_w_mask = zip(train_generator, mask_generator_train)
-
-########################################################
-# Prep Validation data and mask
-
-validation_generator = datagen.flow_from_directory(
-    validation_data_dir,
-    color_mode='rgb',
-    target_size=(desired_image_dim, desired_image_dim),
-    batch_size=batch_size,
-    class_mode=None)
-
-mask_generator_validation = datagen.flow_from_directory(
-    mask_Train_dir,
-    class_mode=None,
-    seed=seed)
-
-# combine generators into one which yields image and masks
-validation_generator_w_mask = zip(
-    validation_generator, mask_generator_validation)
-########################################################
+# print("Starting Data Prep")
+# ########################################################
+# # Prep training data and mask
+# train_generator = datagen.flow_from_directory(
+#     train_data_dir,
+#     color_mode='rgb',
+#     target_size=(desired_image_dim, desired_image_dim),
+#     batch_size=batch_size,
+#     class_mode=None)
+# print("Finished Data Prep: train_generator")
+#
+# mask_generator_train = datagen.flow_from_directory(
+#     mask_Train_dir,
+#     class_mode=None,
+#     seed=seed)
+#
+# # combine generators into one which yields image and masks
+# train_generator_w_mask = zip(train_generator, mask_generator_train)
+#
+# ########################################################
+# # Prep Validation data and mask
+#
+# validation_generator = datagen.flow_from_directory(
+#     validation_data_dir,
+#     color_mode='rgb',
+#     target_size=(desired_image_dim, desired_image_dim),
+#     batch_size=batch_size,
+#     class_mode=None)
+#
+# mask_generator_validation = datagen.flow_from_directory(
+#     mask_Train_dir,
+#     class_mode=None,
+#     seed=seed)
+#
+# # combine generators into one which yields image and masks
+# validation_generator_w_mask = zip(
+#     validation_generator, mask_generator_validation)
+# ########################################################
 
 print("Finished Data Prep: validation_generator")
 
@@ -194,6 +195,7 @@ model.add(Conv2D(32, (3, 3)))
 model.add(MaxPooling2D(pool_size=(3, 3)))
 model.add(Conv2D(1, (3, 3)))
 model.add(Activation('relu'))
+model.add(Dense(100, 1, init='uniform', activation='linear'))
 
 # model.add(Flatten())
 # #model.add(Dense(100))
