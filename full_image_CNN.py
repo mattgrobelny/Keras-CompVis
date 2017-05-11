@@ -191,6 +191,12 @@ model.layers.pop()
 model.layers.pop()
 model.layers.pop()
 
+print(model.layers)
+# model compile
+model.compile(loss='mean_squared_error',
+              optimizer='sgd',
+              metrics=['accuracy'])
+
 # FC
 model.add(Conv2D(512, (3, 3)))
 model.add(Activation('relu'))
@@ -220,6 +226,7 @@ model.add(Dense(100, 1, init='uniform', activation='linear'))
 # model.add(Flatten())
 # #model.add(Dense(100))
 # model.add(Activation('softmax'))
+print(model.layers)
 
 print('Finished Building Network Architecture')
 
