@@ -188,6 +188,8 @@ model.layers.pop()
 model.layers.pop()
 model.layers.pop()
 model.layers.pop()
+model.layers.pop()
+model.layers.pop()
 
 # FC
 model.add(Conv2D(512, (3, 3)))
