@@ -25,3 +25,6 @@ convert *.tiff -set filename: "%t" %[filename:].jpg
 # disperse into Validation, Test and Prediction files sets
 mv `ls -1 | shuf | head -n 28` ../Test/
 mv `ls -1 | shuf | head -n 28` ../Validation/
+
+# prep class folders for each cell count GroundTruth
+mkdir `ls -1 | tr "_" '\t' | cut -f 3 | sort | uniq | grep -Eo "[0-9]+"`
