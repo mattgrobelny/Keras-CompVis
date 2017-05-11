@@ -3,8 +3,8 @@ import keras
 # from keras.datasets import cifar10
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
-from keras.layers import Dense, Dropout, Activation, Flatten
-from keras.layers import Conv2D, MaxPooling2D
+from keras.layers import Dense, Dropout, Activation, Flatten, UpSampling2D
+from keras.layers import Conv2D, Conv3D, MaxPooling2D, ZeroPadding2D, MaxPooling3D
 from keras.utils import plot_model
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 from PIL import Image
@@ -36,7 +36,7 @@ validation_data_dir = home + 'data/Working_Sets_Patches/Validation/'
 train_data_dir = home + 'data/Working_Sets_Patches/Training/'
 evaulate_data_dir = home + 'data/Working_Sets_Patches/Test/'
 prediction_data_dir = home + 'data/Working_Sets_Patches/Prediction/'
-model_dir = home + 'cnn_models/patches_models/'
+model_dir = home + 'cnn_models/patches_models_Full_Arc_test/'
 save_aug_pred_image_dir = home + 'data/Working_Sets_Patches/Pred_augmented_images/'
 prediction_report_images_dir = home + \
     'data/Working_Sets_Patches/Prediction/Images_For_Prediction/'
@@ -52,7 +52,7 @@ img_height = 35
 
 # input_shape=(128, 128, 3) for 128x128 RGB pictures in
 # data_format="channels_last".
-input_shape_image = (100, 100, 3)
+input_shape_image = (50, 50, 3)
 
 # number of training samples
 nb_train_samples = 5475
@@ -79,7 +79,7 @@ print("Starting Data Prep")
 train_generator = datagen.flow_from_directory(
     train_data_dir,
     color_mode='rgb',
-    target_size=(35, 35),
+    target_size=(50, 50),
     batch_size=batch_size,
     class_mode='categorical')
 print("Finished Data Prep: train_generator")
@@ -87,31 +87,56 @@ print("Finished Data Prep: train_generator")
 validation_generator = datagen.flow_from_directory(
     validation_data_dir,
     color_mode='rgb',
-    target_size=(35, 35),
+    target_size=(50, 50),
     batch_size=batch_size,
     class_mode='categorical')
 print("Finished Data Prep: validation_generator")
 
 model = Sequential()
-
-model.add(Conv2D(35, (3, 3), padding='same',
-                 data_format="channels_last",
-                 input_shape=input_shape_image))
+# Image detecting  Layers - Start
+# 2D Conv 2 (input layer)
+model.add(ZeroPadding2D(padding=(1, 1), 32, (3, 3),
+                        data_format="channels_last",
+                        input_shape=input_shape_image))
 model.add(Activation('relu'))
-model.add(Conv2D(35, (3, 3)))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+
+# 2D Conv 2
+model.add(Conv2D(64, (3, 3), padding='same'))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
-model.add(Conv2D(70, (3, 3), padding='same'))
-model.add(Activation('relu'))
-model.add(Conv2D(70, (3, 3)))
+# 2D Conv 3
+model.add(Conv2D(128, (3, 3), padding='same'))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
+# Image detecting  Layers - End
+#
+# # FC
+# model.add(Conv2D(512, (3, 3), padding='same'))
+# model.add(Activation('relu'))
+#
+# # UpSampling 1
+# model.add(UpSampling2D(size=(2, 2))
+# model.add(Activation('relu'))
+# model.add(Conv2D(128, (3, 3), padding='same'))
+#
+# # UpSampling 2
+# model.add(UpSampling2D(size=(2, 2))
+# model.add(Activation('relu'))
+# model.add(Conv2D(64, (3, 3), padding='same'))
+#
+# # UpSampling 3
+# model.add(UpSampling2D(size=(2, 2))
+# model.add(Activation('relu'))
+# model.add(Conv2D(32, (3, 3), padding='same'))
+
+# Layers for patch training recognition
 model.add(Flatten())
-model.add(Dense(560))
+model.add(Dense(1024))
 model.add(Activation('relu'))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes))
@@ -138,7 +163,7 @@ print("Finished Training")
 
 print("Saving Model...")
 
-model.save_weights(model_dir + 'patchcnn.h5')
+model.save_weights(model_dir + 'patchcnn_Full_arch.h5')
 
 print("Model Saved")
 
@@ -194,10 +219,11 @@ plt.xlim(1, epochs)
 plt.xticks(x)
 
 # save fig
-plt.savefig(model_dir + "Metric_Patch_CNN.jpg", dpi=200, rasterized=True)
+plt.savefig(model_dir + "patchcnn_Full_arch_Metric_Patch_CNN.jpg",
+            dpi=200, rasterized=True)
 plt.close()
 print("Plot Saved as:")
-print(model_dir + "Metric_Patch_CNN.jpg")
+print(model_dir + "patchcnn_Full_arch_Metric_Patch_CNN.jpg")
 print("DONE!")
 
 
@@ -253,7 +279,8 @@ print(model_predict)
 
 ##################################################
 # Prep Image Predition Report CSV
-report_fh = open(prediction_report_images_dir + "prediction_report.csv", 'w')
+report_fh = open(prediction_report_images_dir +
+                 "patchcnn_Full_arch_prediction_report.csv", 'w')
 image_list = glob.glob(prediction_report_images_dir + '*.jpg')
 
 # print(image_list)
@@ -270,7 +297,8 @@ report_fh.close()
 
 ##################################################
 # Prep Image Predition Report Markdown
-report_fh = open(save_aug_pred_image_dir + "prediction_report.md", 'w')
+report_fh = open(save_aug_pred_image_dir +
+                 "patchcnn_Full_arch_prediction_report.md", 'w')
 image_list = glob.glob(prediction_report_images_dir + '*.jpg')
 
 # print(image_list)
