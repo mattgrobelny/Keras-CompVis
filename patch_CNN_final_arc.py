@@ -44,7 +44,7 @@ prediction_report_images_dir = home + \
 prefix_out = "full_images_CNN"
 
 # Hyper parameters
-batch_size = 10
+batch_size = 30
 num_classes = 2
 epochs = 10
 
