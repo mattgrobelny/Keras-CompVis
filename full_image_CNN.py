@@ -11,7 +11,7 @@ from PIL import Image
 import numpy as np
 import h5py
 import graphviz
-#import pydot
+# import pydot
 # import glob
 import cv2
 import matplotlib
@@ -24,10 +24,10 @@ import glob
 # Directories
 
 # Polar server
-home = '/home/grobeln2/git_files/Keras-CompVis/'
+# home = '/home/grobeln2/git_files/Keras-CompVis/'
 
 # Mac
-#home = '/Users/matt/github/Keras-CompVis/'
+home = '/Users/matt/github/Keras-CompVis/'
 
 ########
 # Set up Directories
@@ -187,16 +187,24 @@ model.load_weights(model_dir + 'patchcnn_Full_arch.h5')
 # print(model.outputs)
 
 # pop last six layers to adjust for heatmap output
-model.layers.pop()
-model.layers.pop()
-model.layers.pop()
-model.layers.pop()
-model.layers.pop()
-model.layers.pop()
-model.outputs.pop()
+model.pop()
+model.pop()
+model.pop()
+model.pop()
+model.pop()
+model.pop()
+
+print (model.layers[-1])
+# model.layers.pop2()
+# model.layers.pop2()
+# model.layers.pop2()
+# model.layers.pop2()
+# model.layers.pop2()
+# model.layers.pop2()
 # https://github.com/fchollet/keras/issues/871
 # FC
-model.add(Conv2D(512, (3, 3), input_shape=input_shape_image))
+model.add(Dense(1024))
+model.add(Conv2D(512, (3, 3)))
 model.add(Activation('relu'))
 
 # UpSampling 1
@@ -218,7 +226,7 @@ model.add(Conv2D(32, (3, 3)))
 # 2D Conv 5
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Flatten())
-#model.add(Conv2D(1, (3, 3)))
+# model.add(Conv2D(1, (3, 3)))
 model.add(Activation('relu'))
 model.add(Dense(1, activation="linear", kernel_initializer="uniform"))
 
