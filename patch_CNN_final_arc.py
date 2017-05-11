@@ -44,7 +44,7 @@ prediction_report_images_dir = home + \
 # Hyper parameters
 batch_size = 30
 num_classes = 2
-epochs = 10
+epochs = 1
 
 # Addintial parameters
 img_width = 35
