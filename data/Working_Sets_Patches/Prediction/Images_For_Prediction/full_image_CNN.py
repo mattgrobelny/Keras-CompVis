@@ -314,7 +314,7 @@ report_fh.close()
 
 ##################################################
 # Prep Image Predition Report Markdown
-report_fh = open(save_aug_pred_image_dir +
+report_fh = open(prediction_report_images_dir +
                  "patchcnn_Full_arch_prediction_report.md", 'w')
 image_list = glob.glob(prediction_report_images_dir + '*.jpg')
 
@@ -327,7 +327,7 @@ report_fh.write(
 for i in range(len(model_predict)):
     image_name = image_list[i].split('/')[-1][0:-4]
     image_cat = image_name.split('_')[-1]
-    report_fh.write("|![image](%s)|%s|%s|%s|%s| \n" % (image_name, image_name, image_cat,
+    report_fh.write("|![image](%s)|%s|%s|%s|%s| \n" % (image_list[i].split('/')[-1][0:-4], image_name, image_cat,
                                                        model_predict[i][0], model_predict[i][1]))
 print("Done!")
 report_fh.close()

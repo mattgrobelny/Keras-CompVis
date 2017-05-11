@@ -52,7 +52,7 @@ img_height = 35
 
 # input_shape=(128, 128, 3) for 128x128 RGB pictures in
 # data_format="channels_last".
-input_shape_image = (50, 50, 3)
+input_shape_image = (100, 100, 3)
 
 # number of training samples
 nb_train_samples = 5475
@@ -79,7 +79,7 @@ print("Starting Data Prep")
 train_generator = datagen.flow_from_directory(
     train_data_dir,
     color_mode='rgb',
-    target_size=(50, 50),
+    target_size=(100, 100),
     batch_size=batch_size,
     class_mode='categorical')
 print("Finished Data Prep: train_generator")
@@ -87,27 +87,32 @@ print("Finished Data Prep: train_generator")
 validation_generator = datagen.flow_from_directory(
     validation_data_dir,
     color_mode='rgb',
-    target_size=(50, 50),
+    target_size=(100, 100),
     batch_size=batch_size,
     class_mode='categorical')
 print("Finished Data Prep: validation_generator")
 
 model = Sequential()
 # Image detecting  Layers - Start
-# 2D Conv 2 (input layer)
-model.add(Conv2D(32, (3, 3), padding='same',
+# 2D Conv 1 (input layer)
+model.add(Conv2D(1, (3, 3), padding='same',
                  data_format="channels_last",
                  input_shape=input_shape_image))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
 # 2D Conv 2
+model.add(Conv2D(32, (3, 3))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+
+# 2D Conv 3
 model.add(Conv2D(64, (3, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
-# 2D Conv 3
+# 2D Conv 4
 model.add(Conv2D(128, (3, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
@@ -150,7 +155,7 @@ model.compile(loss='categorical_crossentropy',
               metrics=['accuracy'])
 
 print("Starting Training")
-model_fit = model.fit_generator(
+model_fit=model.fit_generator(
     train_generator,
     steps_per_epoch=nb_train_samples // batch_size,
     epochs=epochs,
@@ -177,10 +182,10 @@ print("Model graphic Saved")
 
 print("Plotting Metrics")
 # Set up x range
-x = range(1, epochs + 1)
+x=range(1, epochs + 1)
 
 # start plot
-fig, ax1 = plt.subplots()
+fig, ax1=plt.subplots()
 
 # Plot Accuracy
 ax1.plot(x, model_fit.history['acc'], linewidth=2,
@@ -198,7 +203,7 @@ plt.legend(loc='right')
 
 # Plot Loss
 
-ax2 = ax1.twinx()
+ax2=ax1.twinx()
 
 ax2.plot(x, model_fit.history['loss'], label='Train', color='blue')
 
@@ -208,7 +213,7 @@ ax2.set_ylabel('Loss Metric', color='r')
 ax2.tick_params('y')
 
 # second axis limits
-combine_loss = []
+combine_loss=[]
 combine_loss.append(model_fit.history['val_loss'])
 combine_loss.append(model_fit.history['loss'])
 ax2.set_ylim([0, max(max(combine_loss))])
@@ -229,15 +234,15 @@ print("DONE!")
 
 ##############################################################################
 # Model evaulation and predition code
-steps_eval = 10
+steps_eval=10
 
 print("Starting model evalution and predition test")
 
 # Model evaluate data generator
-evalution_generator = datagen.flow_from_directory(
+evalution_generator=datagen.flow_from_directory(
     evaulate_data_dir,
     color_mode='rgb',
-    target_size=(50, 50),
+    target_size=(100, 100),
     batch_size=batch_size,
     class_mode='categorical')
 
@@ -245,7 +250,7 @@ print("Finished Data Prep: evalution_generator")
 
 print("running model evaluation...")
 # Model evaluate function
-model_eval = model.evaluate_generator(evalution_generator, steps_eval, max_q_size=10,
+model_eval=model.evaluate_generator(evalution_generator, steps_eval, max_q_size=10,
                                       workers=10, pickle_safe=False)
 
 print("# --- Model evaluation Results --- #")
@@ -257,10 +262,10 @@ for i in range(len(model.metrics_names)):
 print("")
 print("Running model prediction test..")
 
-prediction_generator = datagen.flow_from_directory(
+prediction_generator=datagen.flow_from_directory(
     prediction_data_dir,
     color_mode='rgb',
-    target_size=(50, 50),
+    target_size=(100, 100),
     batch_size=1,
     shuffle=False,
     save_prefix="aug_",
@@ -270,7 +275,7 @@ print("Finished Data Prep: prediction_generator")
 
 print("running model prediction test...")
 print("prediction data dir: " + prediction_data_dir)
-model_predict = model.predict_generator(
+model_predict=model.predict_generator(
     prediction_generator,
     steps=10,
     max_q_size=1,
@@ -279,17 +284,17 @@ print(model_predict)
 
 ##################################################
 # Prep Image Predition Report CSV
-report_fh = open(prediction_report_images_dir +
+report_fh=open(prediction_report_images_dir +
                  "patchcnn_Full_arch_prediction_report.csv", 'w')
-image_list = glob.glob(prediction_report_images_dir + '*.jpg')
+image_list=glob.glob(prediction_report_images_dir + '*.jpg')
 
 # print(image_list)
 
 print("Saveing Prediction Report...")
 report_fh.write("Image Dir,Image_name,GroundTruth, P_None_Nuc, P_Nuclei \n")
 for i in range(len(model_predict)):
-    image_name = image_list[i].split('/')[-1][0:-4]
-    image_cat = image_name.split('_')[-1]
+    image_name=image_list[i].split('/')[-1][0:-4]
+    image_cat=image_name.split('_')[-1]
     report_fh.write("%s,%s,%s,%s,%s \n" % (image_list[i], image_name, image_cat,
                                            model_predict[i][0], model_predict[i][1]))
 print("Done!")
@@ -297,9 +302,9 @@ report_fh.close()
 
 ##################################################
 # Prep Image Predition Report Markdown
-report_fh = open(save_aug_pred_image_dir +
+report_fh=open(prediction_report_images_dir +
                  "patchcnn_Full_arch_prediction_report.md", 'w')
-image_list = glob.glob(prediction_report_images_dir + '*.jpg')
+image_list=glob.glob(prediction_report_images_dir + '*.jpg')
 
 # print(image_list)
 
@@ -308,9 +313,9 @@ report_fh.write("|Image|Image_name|GroundTruth| P_None_Nuc| P_Nuclei| \n")
 report_fh.write(
     '| :------------- | :------------- |:------------- |:------------- |:------------- | \n')
 for i in range(len(model_predict)):
-    image_name = image_list[i].split('/')[-1][0:-4]
-    image_cat = image_name.split('_')[-1]
-    report_fh.write("|![image](%s)|%s|%s|%s|%s| \n" % (image_name, image_name, image_cat,
+    image_name=image_list[i].split('/')[-1][0:-4]
+    image_cat=image_name.split('_')[-1]
+    report_fh.write("|![image](%s)|%s|%s|%s|%s| \n" % (image_list[i].split('/')[-1][0:-4], image_name, image_cat,
                                                        model_predict[i][0], model_predict[i][1]))
 print("Done!")
 report_fh.close()
