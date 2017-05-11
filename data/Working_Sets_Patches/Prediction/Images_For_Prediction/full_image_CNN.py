@@ -52,7 +52,7 @@ img_height = 35
 
 # input_shape=(128, 128, 3) for 128x128 RGB pictures in
 # data_format="channels_last".
-input_shape_image = (50, 50, 3)
+input_shape_image = (100, 100, 3)
 
 # number of training samples
 nb_train_samples = 5475
@@ -79,7 +79,7 @@ print("Starting Data Prep")
 train_generator = datagen.flow_from_directory(
     train_data_dir,
     color_mode='rgb',
-    target_size=(50, 50),
+    target_size=(100, 100),
     batch_size=batch_size,
     class_mode='categorical')
 print("Finished Data Prep: train_generator")
@@ -87,7 +87,7 @@ print("Finished Data Prep: train_generator")
 validation_generator = datagen.flow_from_directory(
     validation_data_dir,
     color_mode='rgb',
-    target_size=(50, 50),
+    target_size=(100, 100),
     batch_size=batch_size,
     class_mode='categorical')
 print("Finished Data Prep: validation_generator")
@@ -254,7 +254,7 @@ print("Starting model evalution and predition test")
 evalution_generator = datagen.flow_from_directory(
     evaulate_data_dir,
     color_mode='rgb',
-    target_size=(50, 50),
+    target_size=(100, 100),
     batch_size=batch_size,
     class_mode='categorical')
 
@@ -277,7 +277,7 @@ print("Running model prediction test..")
 prediction_generator = datagen.flow_from_directory(
     prediction_data_dir,
     color_mode='rgb',
-    target_size=(50, 50),
+    target_size=(100, 100),
     batch_size=1,
     shuffle=False,
     save_prefix="aug_",
