@@ -51,7 +51,7 @@ prefix_out = "full_images_CNN"
 # Hyper parameters
 batch_size = 10
 num_classes = 2
-epochs = 1
+epochs = 5
 
 
 # Addintial parameters
@@ -333,7 +333,7 @@ evalution_generator = datagen.flow_from_directory(
     color_mode='rgb',
     target_size=(desired_image_dim, desired_image_dim),
     batch_size=batch_size,
-    class_mode='categorical')
+    class_mode='sparse')
 
 print("Finished Data Prep: evalution_generator")
 
