@@ -95,9 +95,9 @@ print("Finished Data Prep: validation_generator")
 model = Sequential()
 # Image detecting  Layers - Start
 # 2D Conv 2 (input layer)
-model.add(ZeroPadding2D(padding=(1, 1), 32, (3, 3),
-                        data_format="channels_last",
-                        input_shape=input_shape_image))
+model.add(Conv2D(padding=(1, 1), 32, (3, 3),
+                 data_format="channels_last",
+                 input_shape=input_shape_image))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
