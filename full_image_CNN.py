@@ -224,10 +224,10 @@ model.add(Conv2D(32, (3, 3)))
 
 # # Final Layer
 # 2D Conv 5
-model.add(MaxPooling2D(pool_size=(2, 2)))
+#model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Flatten())
+model.Reshape((100, 100, 1))
 # model.add(Conv2D(1, (3, 3)))
-model.add(Activation('relu'))
 model.add(Dense(1, activation="linear", kernel_initializer="uniform"))
 
 # model.add(Flatten())
@@ -358,6 +358,7 @@ prediction_generator = datagen.flow_from_directory(
     batch_size=1,
     shuffle=False,
     save_prefix="aug_",
+    class_mode='sparse',
     save_to_dir=save_aug_pred_image_dir)
 
 print("Finished Data Prep: prediction_generator")
