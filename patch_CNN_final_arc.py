@@ -44,7 +44,7 @@ prediction_report_images_dir = home + \
 # Hyper parameters
 batch_size = 30
 num_classes = 2
-epochs = 1
+epochs = 10
 
 # Addintial parameters
 img_width = 35
@@ -102,13 +102,13 @@ model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
 # 2D Conv 2
-model.add(Conv2D(64, (3, 3), padding='same'))
+model.add(Conv2D(64, (3, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
 # 2D Conv 3
-model.add(Conv2D(128, (3, 3), padding='same'))
+model.add(Conv2D(128, (3, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
@@ -237,7 +237,7 @@ print("Starting model evalution and predition test")
 evalution_generator = datagen.flow_from_directory(
     evaulate_data_dir,
     color_mode='rgb',
-    target_size=(35, 35),
+    target_size=(50, 50),
     batch_size=batch_size,
     class_mode='categorical')
 
@@ -260,7 +260,7 @@ print("Running model prediction test..")
 prediction_generator = datagen.flow_from_directory(
     prediction_data_dir,
     color_mode='rgb',
-    target_size=(35, 35),
+    target_size=(50, 50),
     batch_size=1,
     shuffle=False,
     save_prefix="aug_",
