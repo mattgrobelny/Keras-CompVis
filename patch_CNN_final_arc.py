@@ -95,7 +95,7 @@ print("Finished Data Prep: validation_generator")
 model = Sequential()
 # Image detecting  Layers - Start
 # 2D Conv 2 (input layer)
-model.add(Conv2D(padding=(1, 1), 32, (3, 3),
+model.add(Conv2D(32, (3, 3), padding='same',
                  data_format="channels_last",
                  input_shape=input_shape_image))
 model.add(Activation('relu'))
