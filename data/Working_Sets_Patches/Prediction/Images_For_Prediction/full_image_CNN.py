@@ -171,24 +171,33 @@ model.layers.pop()
 model.layers.pop()
 
 # FC
-model.add(Conv2D(512, (3, 3), padding='same'))
+model.add(Conv2D(512, (3, 3)))
 model.add(Activation('relu'))
 
 # UpSampling 1
 model.add(UpSampling2D(size=(2, 2))
 model.add(Activation('relu'))
-model.add(Conv2D(128, (3, 3), padding='same'))
+model.add(Conv2D(128, (3, 3)))
 
 # UpSampling 2
 model.add(UpSampling2D(size=(2, 2))
 model.add(Activation('relu'))
-model.add(Conv2D(64, (3, 3), padding='same'))
+model.add(Conv2D(64, (3, 3)))
 
 # UpSampling 3
 model.add(UpSampling2D(size=(2, 2))
 model.add(Activation('relu'))
-model.add(Conv2D(32, (3, 3), padding='same'))
+model.add(Conv2D(32, (3, 3)))
 
+# # Final Layer
+# 2D Conv 5
+model.add(MaxPooling2D(pool_size=(3, 3)))
+model.add(Conv2D(1, (3, 3)))
+model.add(Activation('relu'))
+
+# model.add(Flatten())
+# #model.add(Dense(100))
+# model.add(Activation('softmax'))
 
 print('Finished Building Network Architecture')
 
@@ -205,7 +214,8 @@ model_fit=model.fit_generator(
     validation_data=validation_generator_w_mask,
     validation_steps=nb_validation_samples // batch_size,
     # class_weight=class_weight_dic
-)
+    )
+
 # print(model_fit.history)
 print("Finished Training")
 
