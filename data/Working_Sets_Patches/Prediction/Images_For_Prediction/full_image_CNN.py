@@ -120,6 +120,24 @@ datagen = ImageDataGenerator(
 #     validation_generator, mask_generator_validation)
 # ########################################################
 
+print("Starting Data Prep")
+train_generator = datagen.flow_from_directory(
+    train_data_dir,
+    color_mode='rgb',
+    target_size=(desired_image_dim, desired_image_dim),
+    batch_size=batch_size,
+    class_mode=None)
+print("Finished Data Prep: train_generator")
+
+validation_generator = datagen.flow_from_directory(
+    validation_data_dir,
+    color_mode='rgb',
+    target_size=(desired_image_dim, desired_image_dim),
+    batch_size=batch_size,
+    class_mode=None)
+print("Finished Data Prep: validation_generator")
+
+
 print("Finished Data Prep: validation_generator")
 
 model = Sequential()
