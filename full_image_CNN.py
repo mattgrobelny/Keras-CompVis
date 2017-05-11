@@ -208,17 +208,17 @@ model.add(Conv2D(512, (3, 3)))
 model.add(Activation('relu'))
 
 # UpSampling 1
-model.add(UpSampling2D(size=(2, 2)))
+model.add(UpSampling2D(size=(3, 3)))
 model.add(Activation('relu'))
 model.add(Conv2D(128, (3, 3)))
 
 # UpSampling 2
-model.add(UpSampling2D(size=(2, 2)))
+model.add(UpSampling2D(size=(3, 3)))
 model.add(Activation('relu'))
 model.add(Conv2D(64, (3, 3)))
 
 # UpSampling 3
-model.add(UpSampling2D(size=(2, 2)))
+model.add(UpSampling2D(size=(3, 3)))
 model.add(Activation('relu'))
 model.add(Conv2D(32, (3, 3)))
 
@@ -226,7 +226,7 @@ model.add(Conv2D(32, (3, 3)))
 # 2D Conv 5
 #model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Flatten())
-model.add(Reshape((100, 100)))
+# model.add(Reshape((100, 100)))
 # model.add(Conv2D(1, (3, 3)))
 model.add(Dense(1, activation="linear", kernel_initializer="uniform"))
 
