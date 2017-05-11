@@ -47,7 +47,7 @@ mask_evalutaion_dir = home + 'data/Working_Sets_Full_Images/Masks/Test'
 # Hyper parameters
 batch_size = 10
 num_classes = 2
-epochs = 10
+epochs = 1
 
 
 # Addintial parameters
