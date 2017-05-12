@@ -52,7 +52,7 @@ prefix_out = "full_images_CNN"
 # Hyper parameters
 batch_size = 2
 num_classes = 2
-epochs = 25
+epochs = 5
 
 
 # Addintial parameters
@@ -235,10 +235,10 @@ model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
 model.add(Flatten())
-model.add(Dense(256, activation='relu'))
-model.add(Dropout(0.5))
-model.add(Dense(256, activation='relu'))
-model.add(Dropout(0.5))
+model.add(Dense(512, activation='relu'))
+model.add(Dropout(0.25))
+model.add(Dense(512, activation='relu'))
+model.add(Dropout(0.25))
 # # Final Layer
 # https://stats.stackexchange.com/questions/243578/how-to-get-continuous-output-with-convolutional-network-keras
 # model.add(Flatten())
