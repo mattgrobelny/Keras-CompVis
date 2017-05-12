@@ -228,11 +228,19 @@ model.add(Dense(1))  # 100 real classes
 
 print('Finished Building Network Architecture')
 
+##########################################################################
+# Hyper parameter set 2
+learning_rate = 0.1
+decay_rate = learning_rate / epochs
+momentum = 0.8
+sgd = SGD(lr=learning_rate, momentum=momentum,
+          decay=decay_rate, nesterov=False)
+##########################################################################
 
 # model compile
 # http://chat.stackexchange.com/rooms/47988/discussion-on-answer-by-hugh-how-to-get-continuous-output-with-convolutional-net
 model.compile(loss='mean_squared_error',
-              optimizer='rmsprop',
+              optimizer=sgd,
               metrics=['mean_absolute_error'])
 
 print("Saving Model Graphic...")
