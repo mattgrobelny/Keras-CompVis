@@ -375,7 +375,7 @@ report_fh.write("Image Dir,Image_name,GroundTruth, P_None_Nuc, P_Nuclei \n")
 for i in range(len(model_predict)):
     image_name = image_list[i].split('/')[-1][0:-4]
     image_cat = int(image_name.split('_')[2].split('C')[1])
-    report_fh.write("%s,%s,%s,%s,%s \n" % (image_list[i], image_name, image_cat,
+    report_fh.write("%s,%s,%s,%s,%s \n" % (image_list[0][i], image_name, image_cat,
                                            model_predict[i]))
 print("Done!")
 report_fh.close()
@@ -396,6 +396,6 @@ for i in range(len(model_predict)):
     image_name = image_list[i].split('/')[-1][0:-4]
     image_cat = int(image_name.split('_')[2].split('C')[1])
     report_fh.write("|![image](%s)|%s|%s|%s|%s| \n" % (image_list[i].split('/')[-1], image_name, image_cat,
-                                                       model_predict[i]))
+                                                       model_predict[0][i]))
 print("Done!")
 report_fh.close()
