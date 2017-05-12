@@ -198,7 +198,11 @@ model.pop()
 print (model.layers[-1])
 
 # https://github.com/fchollet/keras/issues/871
-# FC
+# FC1
+model.add(Dense(1024))
+model.add(Conv2D(512, (3, 3)))
+model.add(Activation('relu'))
+# FC2
 model.add(Dense(1024))
 model.add(Conv2D(512, (3, 3)))
 model.add(Activation('relu'))
@@ -241,7 +245,7 @@ print('Finished Building Network Architecture')
 # model compile
 # http://chat.stackexchange.com/rooms/47988/discussion-on-answer-by-hugh-how-to-get-continuous-output-with-convolutional-net
 model.compile(loss='mean_squared_error',
-              optimizer='Nadam',
+              optimizer='rmsprop',
               metrics=['mean_absolute_error'])
 
 print("Saving Model Graphic...")
