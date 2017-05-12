@@ -241,7 +241,7 @@ print('Finished Building Network Architecture')
 # model compile
 # http://chat.stackexchange.com/rooms/47988/discussion-on-answer-by-hugh-how-to-get-continuous-output-with-convolutional-net
 model.compile(loss='mean_squared_error',
-              optimizer='Adam',
+              optimizer='Nadam',
               metrics=['mean_absolute_error'])
 
 print("Saving Model Graphic...")
