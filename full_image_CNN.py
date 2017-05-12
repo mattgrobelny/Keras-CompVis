@@ -197,8 +197,8 @@ print (model.layers[-1])
 
 # https://github.com/fchollet/keras/issues/871
 # FC
-model.add(Dense(1024))
-model.add(Conv2D(512, (2, 2)))
+# model.add(Dense(1024))
+model.add(Conv2D(512, (3, 3)))
 model.add(Activation('relu'))
 
 # UpSampling 1
