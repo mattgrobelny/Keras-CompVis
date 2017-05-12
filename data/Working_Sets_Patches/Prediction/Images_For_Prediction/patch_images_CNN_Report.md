@@ -1,32 +1,22 @@
-# --- Model evaluation Results ---
-Starting model evalution and predition test  
-Found 1816 images belonging to 2 classes.  
-Finished Data Prep: evalution_generator
-
-loss  ---  0.0104214738822  
-acc  ---  0.996666663885
-
-# --- Prediction Test Set  ---
-
-|Image|Image_name|GroundTruth| P_None_Nuc| P_Nuclei|
-| :------------- | :------------- |:------------- |:------------- |:------------- |
-|![image](SIMCEPImages_A02_C5_F1_s07_w1_Patch_3_CX_1.jpg)|SIMCEPImages_A02_C5_F1_s07_w1_Patch_3_CX_1|1|1.33226e-11|1.0|
-|![image](Images_For_Prediction5wk_con_4_Patch_5_CX_0.jpg)|Images_For_Prediction5wk_con_4_Patch_5_CX_0|0|0.983169|0.0168306|
-|![image](Images_For_Prediction5wk_con_3_Patch_4_CX_1.jpg)|Images_For_Prediction5wk_con_3_Patch_4_CX_1|1|0.00203301|0.997967|
-|![image](Images_For_Prediction5wk_con_4_Patch_1_CX_0.jpg)|Images_For_Prediction5wk_con_4_Patch_1_CX_0|0|0.98285|0.01715|
-|![image](SIMCEPImages_A01_C1_F1_s03_w1_Patch_11_CX_0_.jpg)|SIMCEPImages_A01_C1_F1_s03_w1_Patch_11_CX_0|0|0.980826|0.0191744|
-|![image](Images_For_Prediction5wk_con_4_Patch_2_CX_0.jpg)|Images_For_Prediction5wk_con_4_Patch_2_CX_0|0|0.983038|0.0169615|
-|![image](SIMCEPImages_A02_C5_F1_s20_w1_Patch_3_CX_1.jpg)|SIMCEPImages_A02_C5_F1_s20_w1_Patch_3_CX_1|1|3.46354e-09|1.0|
-|![image](Images_For_Prediction5wk_con_4_Patch_4_CX_0.jpg)|Images_For_Prediction5wk_con_4_Patch_4_CX_0|0|0.983987|0.0160127|
-|![image](SIMCEPImages_A06_C23_F1_s14_w1_Patch_1_CX_1.jpg)|SIMCEPImages_A06_C23_F1_s14_w1_Patch_1_CX_1|1|9.89309e-09|1.0|
-|![image](SIMCEPImages_A02_C5_F1_s20_w1_Patch_8_CX_0_.jpg)|SIMCEPImages_A02_C5_F1_s20_w1_Patch_8_CX_0|0|0.982176|0.0178237|
-|![image](Images_For_Prediction5wk_con_3_Patch_5_CX_1.jpg)|Images_For_Prediction5wk_con_3_Patch_5_CX_1|1|0.0012433|0.998757|
-|![image](Images_For_Prediction5wk_con_3_Patch_1_CX_1.jpg)|Images_For_Prediction5wk_con_3_Patch_1_CX_1|1|0.000107849|0.999892|
-|![image](SIMCEPImages_A02_C5_F1_s20_w1_Patch_5_CX_0_.jpg)|SIMCEPImages_A02_C5_F1_s20_w1_Patch_5_CX_0|0|0.983545|0.0164554|
-|![image](Images_For_Prediction5wk_con_3_Patch_2_CX_1.jpg)|Images_For_Prediction5wk_con_3_Patch_2_CX_1|1|0.000262671|0.999737|
-|![image](SIMCEPImages_A06_C23_F1_s14_w1_Patch_22_CX_1.jpg)|SIMCEPImages_A06_C23_F1_s14_w1_Patch_22_CX_1|1|2.75451e-17|1.0|
-|![image](SIMCEPImages_A06_C23_F1_s14_w1_Patch_12_CX_1.jpg)|SIMCEPImages_A06_C23_F1_s14_w1_Patch_12_CX_1|1|8.95537e-10|1.0|
-|![image](SIMCEPImages_A06_C23_F1_s14_w1_Patch_7_CX_1.jpg)|SIMCEPImages_A06_C23_F1_s14_w1_Patch_7_CX_1|1|9.64376e-07|0.999999|
-|![image](Images_For_Prediction5wk_con_3_Patch_3_CX_1.jpg)|Images_For_Prediction5wk_con_3_Patch_3_CX_1|1|8.68533e-05|0.999913|
-|![image](Images_For_Prediction5wk_con_4_Patch_3_CX_0.jpg)|Images_For_Prediction5wk_con_4_Patch_3_CX_0|0|0.977333|0.0226668|
-|![image](SIMCEPImages_A02_C5_F1_s07_w1_Patch_6_CX_0_.jpg)|SIMCEPImages_A02_C5_F1_s07_w1_Patch_6_CX_0|0|0.983754|0.0162464|
+|Image|Image_name|GroundTruth| P_None_Nuc| P_Nuclei| 
+| :------------- | :------------- |:------------- |:------------- |:------------- | 
+|![image](SIMCEPImages_A02_C5_F1_s07_w1_Patch_3_CX_1.jpg)|SIMCEPImages_A02_C5_F1_s07_w1_Patch_3_CX_1|1|7.78507e-05|0.999922| 
+|![image](Images_For_Prediction5wk_con_4_Patch_5_CX_0.jpg)|Images_For_Prediction5wk_con_4_Patch_5_CX_0|0|0.874929|0.125071| 
+|![image](Images_For_Prediction5wk_con_3_Patch_4_CX_1.jpg)|Images_For_Prediction5wk_con_3_Patch_4_CX_1|1|0.857978|0.142022| 
+|![image](Images_For_Prediction5wk_con_4_Patch_1_CX_0.jpg)|Images_For_Prediction5wk_con_4_Patch_1_CX_0|0|0.796033|0.203967| 
+|![image](SIMCEPImages_A01_C1_F1_s03_w1_Patch_11_CX_0_.jpg)|SIMCEPImages_A01_C1_F1_s03_w1_Patch_11_CX_0_||0.874826|0.125174| 
+|![image](Images_For_Prediction5wk_con_4_Patch_2_CX_0.jpg)|Images_For_Prediction5wk_con_4_Patch_2_CX_0|0|0.862351|0.137649| 
+|![image](SIMCEPImages_A02_C5_F1_s20_w1_Patch_3_CX_1.jpg)|SIMCEPImages_A02_C5_F1_s20_w1_Patch_3_CX_1|1|1.14858e-05|0.999989| 
+|![image](Images_For_Prediction5wk_con_4_Patch_4_CX_0.jpg)|Images_For_Prediction5wk_con_4_Patch_4_CX_0|0|0.874826|0.125174| 
+|![image](SIMCEPImages_A06_C23_F1_s14_w1_Patch_1_CX_1.jpg)|SIMCEPImages_A06_C23_F1_s14_w1_Patch_1_CX_1|1|0.00016908|0.999831| 
+|![image](SIMCEPImages_A02_C5_F1_s20_w1_Patch_8_CX_0_.jpg)|SIMCEPImages_A02_C5_F1_s20_w1_Patch_8_CX_0_||0.874826|0.125174| 
+|![image](Images_For_Prediction5wk_con_3_Patch_5_CX_1.jpg)|Images_For_Prediction5wk_con_3_Patch_5_CX_1|1|0.075193|0.924807| 
+|![image](Images_For_Prediction5wk_con_3_Patch_1_CX_1.jpg)|Images_For_Prediction5wk_con_3_Patch_1_CX_1|1|0.26238|0.73762| 
+|![image](SIMCEPImages_A02_C5_F1_s20_w1_Patch_5_CX_0_.jpg)|SIMCEPImages_A02_C5_F1_s20_w1_Patch_5_CX_0_||0.874847|0.125153| 
+|![image](Images_For_Prediction5wk_con_3_Patch_2_CX_1.jpg)|Images_For_Prediction5wk_con_3_Patch_2_CX_1|1|0.308789|0.691211| 
+|![image](SIMCEPImages_A06_C23_F1_s14_w1_Patch_22_CX_1.jpg)|SIMCEPImages_A06_C23_F1_s14_w1_Patch_22_CX_1|1|0.000352775|0.999647| 
+|![image](SIMCEPImages_A06_C23_F1_s14_w1_Patch_12_CX_1.jpg)|SIMCEPImages_A06_C23_F1_s14_w1_Patch_12_CX_1|1|0.000239653|0.99976| 
+|![image](SIMCEPImages_A06_C23_F1_s14_w1_Patch_7_CX_1.jpg)|SIMCEPImages_A06_C23_F1_s14_w1_Patch_7_CX_1|1|0.000154575|0.999845| 
+|![image](Images_For_Prediction5wk_con_3_Patch_3_CX_1.jpg)|Images_For_Prediction5wk_con_3_Patch_3_CX_1|1|0.184799|0.815201| 
+|![image](Images_For_Prediction5wk_con_4_Patch_3_CX_0.jpg)|Images_For_Prediction5wk_con_4_Patch_3_CX_0|0|0.874937|0.125063| 
+|![image](SIMCEPImages_A02_C5_F1_s07_w1_Patch_6_CX_0_.jpg)|SIMCEPImages_A02_C5_F1_s07_w1_Patch_6_CX_0_||0.874827|0.125173| 
