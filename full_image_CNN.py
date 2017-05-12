@@ -51,7 +51,7 @@ prefix_out = "full_images_CNN"
 # Hyper parameters
 batch_size = 2
 num_classes = 2
-epochs = 15
+epochs = 25
 
 
 # Addintial parameters
@@ -148,28 +148,28 @@ model = Sequential()
 
 # Image detecting  Layers - Start
 # 2D Conv 1 (input layer) - None trainable
-model.add(Conv2D(1, (3, 3), padding='same',
+model.add(Conv2D(35, (3, 3), padding='same',
                  data_format="channels_last",
                  input_shape=input_shape_image,
                  trainable=True))
 model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(MaxPooling2D(pool_size=(3, 3)))
 
 # 2D Conv 2 - None trainable
 model.add(Conv2D(32, (3, 3), trainable=False))
 model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(MaxPooling2D(pool_size=(3, 3)))
 
 # 2D Conv 3 - None trainable
 model.add(Conv2D(64, (3, 3), trainable=False))
 model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(MaxPooling2D(pool_size=(3, 3)))
 model.add(Dropout(0.25))
 
 # 2D Conv 4 - None trainable
 model.add(Conv2D(128, (3, 3), trainable=False))
 model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(MaxPooling2D(pool_size=(3, 3)))
 model.add(Dropout(0.25))
 
 # Image detecting  Layers - End
@@ -195,12 +195,7 @@ model.pop()
 model.pop()
 
 print (model.layers[-1])
-# model.layers.pop2()
-# model.layers.pop2()
-# model.layers.pop2()
-# model.layers.pop2()
-# model.layers.pop2()
-# model.layers.pop2()
+
 # https://github.com/fchollet/keras/issues/871
 # FC
 model.add(Dense(1024))
@@ -276,8 +271,8 @@ fig, ax1 = plt.subplots()
 ax1.plot(x, model_fit.history['mean_absolute_error'], linewidth=2,
          label='Train mean_absolute_error', color='blue')
 
-ax1.plot(x, model_fit.history['val_loss'],
-         label='val_loss', color='red')
+ax1.plot(x, model_fit.history['val_mean_absolute_error'],
+         label='val_mean_absolute_error', color='red')
 ax1.set_ylabel('Accuracy (%)')
 # Make the y-axis label, ticks and tick labels match the line color.
 ax1.set_xlabel('Epochs #')
