@@ -216,13 +216,13 @@ model.add(Activation('relu'))
 # UpSampling 3
 model.add(UpSampling2D(size=(2, 2)))
 model.add(Activation('relu'))
-model.add(Conv2D(32, (3, 3)))
+model.add(Conv2D(16, (3, 3)))
 model.add(Activation('relu'))
 
 # # Final Layer
 # https://stats.stackexchange.com/questions/243578/how-to-get-continuous-output-with-convolutional-network-keras
 model.add(Flatten())
-model.add(Reshape((-1, 100, 100)))
+#model.add(Reshape((-1, 100, 100)))
 model.add(Dense(1))  # 100 real classes
 #model.add(Dense(1, activation="linear", kernel_initializer="uniform"))
 
