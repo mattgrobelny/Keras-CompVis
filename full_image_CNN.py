@@ -215,6 +215,12 @@ model.add(Conv2D(128, (3, 3)))
 # UpSampling 2
 model.add(UpSampling2D(size=(2, 2)))
 model.add(Activation('relu'))
+model.add(Conv2D(64, (3, 3)))
+model.add(Activation('relu'))
+
+# UpSampling 3
+model.add(UpSampling2D(size=(2, 2)))
+model.add(Activation('relu'))
 model.add(Conv2D(32, (3, 3)))
 model.add(Activation('relu'))
 
@@ -375,8 +381,8 @@ report_fh.write("Image Dir,Image_name,GroundTruth, P_None_Nuc, P_Nuclei \n")
 for i in range(len(model_predict)):
     image_name = image_list[i].split('/')[-1][0:-4]
     image_cat = int(image_name.split('_')[2].split('C')[1])
-    report_fh.write("%s,%s,%s,%s \n" % (image_list[i], image_name, image_cat,
-                                        model_predict[0][i]))
+    report_fh.write("%s,%s,%s,%s \n" %
+                    (image_list[i], image_name, image_cat, model_predict[i][0]))
 print("Done!")
 report_fh.close()
 
@@ -396,6 +402,6 @@ for i in range(len(model_predict)):
     image_name = image_list[i].split('/')[-1][0:-4]
     image_cat = int(image_name.split('_')[2].split('C')[1])
     report_fh.write("|![image](%s)|%s|%s|%s| \n" % (image_list[i].split('/')[-1], image_name, image_cat,
-                                                    model_predict[0][i]))
+                                                    model_predict[i][0]))
 print("Done!")
 report_fh.close()
