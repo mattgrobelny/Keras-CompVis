@@ -242,7 +242,7 @@ model.add(Dropout(0.25))
 # https://stats.stackexchange.com/questions/243578/how-to-get-continuous-output-with-convolutional-network-keras
 # model.add(Flatten())
 #model.add(Reshape((-1, 100, 100)))
-model.add(Dense(1))  # 100 real classes
+model.add(Dense(1, activation='linear'))  # 100 real classes
 #model.add(Dense(1, activation="linear", kernel_initializer="uniform"))
 
 print('Finished Building Network Architecture')
