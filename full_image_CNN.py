@@ -51,7 +51,7 @@ prefix_out = "full_images_CNN"
 # Hyper parameters
 batch_size = 2
 num_classes = 2
-epochs = 5
+epochs = 15
 
 
 # Addintial parameters
@@ -274,15 +274,21 @@ fig, ax1 = plt.subplots()
 
 # Plot Accuracy
 ax1.plot(x, model_fit.history['mean_absolute_error'], linewidth=2,
-         label='Train Accuracy', color='blue')
+         label='Train mean_absolute_error', color='blue')
 
-ax1.plot(x, model_fit.history['val_mean_absolute_error'],
-         label='Val Accuracy', color='red')
+ax1.plot(x, model_fit.history['val_loss'],
+         label='val_loss', color='red')
 ax1.set_ylabel('Accuracy (%)')
 # Make the y-axis label, ticks and tick labels match the line color.
 ax1.set_xlabel('Epochs #')
 ax1.tick_params('y')
-ax1.set_ylim([0, 1])
+
+combine_loss = []
+combine_loss.append(model_fit.history['mean_absolute_error'])
+combine_loss.append(model_fit.history['val_mean_absolute_error'])
+ax1.set_ylim([0, max(max(combine_loss))])
+
+#ax1.set_ylim([0, 1])
 
 plt.legend(loc='right')
 
@@ -299,8 +305,8 @@ ax2.tick_params('y')
 
 # second axis limits
 combine_loss = []
-combine_loss.append(model_fit.history['val_loss'])
 combine_loss.append(model_fit.history['loss'])
+combine_loss.append(model_fit.history['val_loss'])
 ax2.set_ylim([0, max(max(combine_loss))])
 
 # adjust x axis
