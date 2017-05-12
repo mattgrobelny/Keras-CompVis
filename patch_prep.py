@@ -12,13 +12,16 @@ import sys
 image_location1 = '/Users/matt/github/Keras-CompVis/data/rand_200/'
 image_location2 = '/Users/matt/github/Keras-CompVis/data/rand_500/'
 image_location3 = '/Users/matt/github/Keras-CompVis/data/rand_1000/'
+image_location4 = '/Users/matt/github/Keras-CompVis/data/Real_data/Images/'
 
-patch_location = '/Users/matt/github/Keras-CompVis/data/Patches_All/'
+#patch_location = '/Users/matt/github/Keras-CompVis/data/Patches_All/'
+patch_location = '/Users/matt/github/Keras-CompVis/data/Working_Sets_Patches/Prediction/Images_For_Prediction'
 # Filename for cell locations change for image set you are working on
 # CHANGE ME TO RUN SCRIPT
 cell_location_csv1 = 'Cell_locations_200.csv'
 cell_location_csv2 = 'Cell_locations_500.csv'
 cell_location_csv3 = 'Cell_locations_1000.csv'
+cell_location_csv4 = 'Cell_locations_Real_Images.csv'
 
 # output location - change for your directory
 # CHANGE ME TO RUN SCRIPT
@@ -34,7 +37,7 @@ def output_patches(location_cell_csv, cell_location_csv, image_location, patch_l
     cell_h = 35
 
     # try to make x num blank patches per image
-    none_cell_images_count = 20
+    none_cell_images_count = 1
 
     # high end pixel vals allowed in blank image
     exm_pix = 100
@@ -58,12 +61,13 @@ def output_patches(location_cell_csv, cell_location_csv, image_location, patch_l
         cell_image_crop_ranges = set()
 
         print image_name
-        if 1 != len(image_name.split("w1")):
+        if 1 != len(image_name.split("5wk")):
             count = 1
             none_count = 0
 
             # Load the original image:
-            img = Image.open(image_location + image_name + ".TIF")
+            img = Image.open(image_location + image_name +
+                             ".tif").convert('RGB')
 
             # save img dims
             height, width = img.size
@@ -140,12 +144,15 @@ def output_patches(location_cell_csv, cell_location_csv, image_location, patch_l
 
 ##########################################################################
 # Output patches for each random set of images
-# rand_200
-output_patches(location_cell_csv, cell_location_csv1,
-               image_location1, patch_location)
-# rand_500
-output_patches(location_cell_csv, cell_location_csv2,
-               image_location2, patch_location)
-# rand_1000
-output_patches(location_cell_csv, cell_location_csv3,
-               image_location3, patch_location)
+# # rand_200
+# output_patches(location_cell_csv, cell_location_csv1,
+#                image_location1, patch_location)
+# # rand_500
+# output_patches(location_cell_csv, cell_location_csv2,
+#                image_location2, patch_location)
+# # rand_1000
+# output_patches(location_cell_csv, cell_location_csv3,
+#                image_location3, patch_location)
+# Real Image
+output_patches(location_cell_csv, cell_location_csv4,
+               image_location4, patch_location)

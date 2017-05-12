@@ -8,13 +8,15 @@ import sys
 
 # Dir for cell images - change for your directory
 # CHANGE ME TO RUN SCRIPT
-image_location = '/Users/matt/github/Keras-CompVis/data/rand_200/'
+#image_location = '/Users/matt/github/Keras-CompVis/data/rand_200/'
+image_location = '/Users/matt/github/Keras-CompVis/data/Real_data/Images/'
 
 # Filename for cell locations change for image set you are working on
 # CHANGE ME TO RUN SCRIPT
-outfile = 'Cell_locations_200.csv'
+# outfile = 'Cell_locations_200.csv'
 # outfile = 'Cell_locations_500.csv'
 # outfile = 'Cell_locations_1000.csv'
+outfile = 'Cell_locations_Real_Images.csv'
 
 # output location - change for your directory
 # CHANGE ME TO RUN SCRIPT
@@ -25,8 +27,8 @@ location_output = '/Users/matt/github/Keras-CompVis/data/cell_locations_out/'
 splitter = '/'  # Mac or UNIX machine
 
 
-jpg = '*.TIF'
-
+#jpg = '*.TIF'
+jpg = '*.tif'
 # string for glob to produce list of files only .jpgs
 glob_dir = image_location + jpg
 # print glob_dir
@@ -111,9 +113,12 @@ for image in image_list:
     image_name = image.split(splitter)[-1][0:-4]
 
     # Work on images which are not body stained and are not already annotated
-    if image_name not in done_files and 1 != len(image_name.split("w1")):
+    if image_name not in done_files:
+
+        # if image_name not in done_files and 1 != len(image_name.split("w1")):
         print "Working on:", image_name, "--- %s" % (float(zero + len(done_files)) / float(len(image_list)) * 100), '% done for image set'
-        cell_count_GT = int(image_name.split('_')[2].split('C')[1])
+        #cell_count_GT = int(image_name.split('_')[2].split('C')[1])
+        cell_count_GT = 5
         click = Pixel_locator()
         click.fname = image
         click.click_left = cell_count_GT

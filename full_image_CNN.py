@@ -60,7 +60,7 @@ img_height = 520
 
 # input_shape=(128, 128, 3) for 128x128 RGB pictures in
 # data_format="channels_last".
-desired_image_dim = 400  # such that width == height
+desired_image_dim = 100  # such that width == height
 input_shape_image = (desired_image_dim, desired_image_dim, 3)
 
 
