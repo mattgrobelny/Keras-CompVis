@@ -49,7 +49,7 @@ mask_evalutaion_dir = home + 'data/Working_Sets_Full_Images/Masks/Test'
 prefix_out = "full_images_CNN"
 
 # Hyper parameters
-batch_size = 2
+batch_size = 10
 num_classes = 2
 epochs = 25
 
