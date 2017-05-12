@@ -221,7 +221,7 @@ model.add(Activation('relu'))
 # # Final Layer
 # https://stats.stackexchange.com/questions/243578/how-to-get-continuous-output-with-convolutional-network-keras
 model.add(Flatten())
-model.add(Dense(batch_size, 100))  # 100 real classes
+model.add(Dense(1))  # 100 real classes
 #model.add(Dense(1, activation="linear", kernel_initializer="uniform"))
 
 print('Finished Building Network Architecture')
