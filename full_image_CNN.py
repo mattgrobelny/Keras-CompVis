@@ -182,7 +182,7 @@ model.add(Dense(num_classes))
 model.add(Activation('softmax'))
 
 # load the weights - From patch training
-model.load_weights(model_dir + 'patchcnn_Full_arch.h5')
+model.load_weights(model_dir + 'patch_images_CNN.h5')
 # print(model.outputs)
 
 # pop last six layers to adjust for heatmap output
