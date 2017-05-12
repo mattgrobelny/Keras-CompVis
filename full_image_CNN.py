@@ -50,7 +50,7 @@ mask_evalutaion_dir = home + 'data/Working_Sets_Full_Images/Masks/Test'
 prefix_out = "full_images_CNN"
 
 # Hyper parameters
-batch_size = 5
+batch_size = 2
 num_classes = 2
 epochs = 25
 
@@ -231,7 +231,7 @@ print('Finished Building Network Architecture')
 
 ##########################################################################
 # Hyper parameter set 2
-learning_rate = 0.1
+learning_rate = 0.01
 decay_rate = learning_rate / epochs
 momentum = 0.8
 optimizer_fc = optimizers.RMSprop(
