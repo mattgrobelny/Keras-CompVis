@@ -231,17 +231,17 @@ print('Finished Building Network Architecture')
 
 ##########################################################################
 # Hyper parameter set 2
-learning_rate = 0.01
-decay_rate = learning_rate / epochs
-momentum = 0.8
-optimizer_fc = optimizers.RMSprop(
-    decay=decay_rate, lr=learning_rate, rho=0.9, epsilon=1e-08)
+# learning_rate = 0.01
+# decay_rate = learning_rate / epochs
+# momentum = 0.8
+# optimizer_fc = optimizers.RMSprop(
+#     decay=decay_rate, lr=learning_rate, rho=0.9, epsilon=1e-08)
 ##########################################################################
 
 # model compile
 # http://chat.stackexchange.com/rooms/47988/discussion-on-answer-by-hugh-how-to-get-continuous-output-with-convolutional-net
 model.compile(loss='mean_squared_error',
-              optimizer=optimizer_fc,
+              optimizer='Adam',
               metrics=['mean_absolute_error'])
 
 print("Saving Model Graphic...")
