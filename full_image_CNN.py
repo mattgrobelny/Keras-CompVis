@@ -218,7 +218,7 @@ model.add(UpSampling2D(size=(2, 2)))
 model.add(Activation('relu'))
 model.add(Conv2D(32, (3, 3)))
 model.add(Activation('relu'))
-
+model.add(Reshape(-1, 100, 100))
 # # Final Layer
 # https://stats.stackexchange.com/questions/243578/how-to-get-continuous-output-with-convolutional-network-keras
 model.add(Flatten())
