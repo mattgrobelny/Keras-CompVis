@@ -121,7 +121,7 @@ model.add(Dropout(0.25))
 # 2D Conv 4 - None trainable
 model.add(Conv2D(128, (3, 3), trainable=True))
 model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(3, 3)))
+model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
 
