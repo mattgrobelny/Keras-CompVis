@@ -151,7 +151,7 @@ model = Sequential()
 model.add(Conv2D(35, (3, 3), padding='same',
                  data_format="channels_last",
                  input_shape=input_shape_image,
-                 trainable=True))
+                 trainable=False))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(3, 3)))
 
@@ -197,7 +197,7 @@ print (model.layers[-1])
 
 # https://github.com/fchollet/keras/issues/871
 # FC
-# model.add(Dense(1024))
+model.add(Dense(1024))
 model.add(Conv2D(512, (3, 3)))
 model.add(Activation('relu'))
 
