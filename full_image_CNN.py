@@ -236,7 +236,7 @@ model.add(Dropout(0.25))
 
 model.add(Flatten())
 model.add(Dense(512, activation='relu'))
-model.add(Conv2D(64, (3, 3), activation='relu'))
+model.add(Conv1D(64, (3, 3), activation='relu'))
 model.add(Dropout(0.25))
 model.add(Dense(512, activation='relu'))
 model.add(Dropout(0.25))
