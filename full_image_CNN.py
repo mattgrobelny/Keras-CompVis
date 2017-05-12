@@ -267,10 +267,10 @@ x = range(1, epochs + 1)
 fig, ax1 = plt.subplots()
 
 # Plot Accuracy
-ax1.plot(x, model_fit.history['acc'], linewidth=2,
+ax1.plot(x, model_fit.history['mean_absolute_error'], linewidth=2,
          label='Train Accuracy', color='blue')
 
-ax1.plot(x, model_fit.history['val_acc'],
+ax1.plot(x, model_fit.history['val_mean_absolute_error'],
          label='Val Accuracy', color='red')
 ax1.set_ylabel('Accuracy (%)')
 # Make the y-axis label, ticks and tick labels match the line color.
