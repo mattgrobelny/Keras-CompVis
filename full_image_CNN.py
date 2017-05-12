@@ -147,83 +147,96 @@ print("Finished Data Prep: validation_generator")
 
 model = Sequential()
 
-# Image detecting  Layers - Start
-# 2D Conv 1 (input layer) - None trainable
-model.add(Conv2D(1, (3, 3), padding='same',
-                 data_format="channels_last",
-                 input_shape=input_shape_image,
-                 trainable=True))
-model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+# # Image detecting  Layers - Start
+# # 2D Conv 1 (input layer) - None trainable
+# model.add(Conv2D(1, (3, 3), padding='same',
+#                  data_format="channels_last",
+#                  input_shape=input_shape_image,
+#                  trainable=True))
+# model.add(Activation('relu'))
+# model.add(MaxPooling2D(pool_size=(2, 2)))
+#
+# # 2D Conv 2 - None trainable
+# model.add(Conv2D(32, (3, 3), trainable=False))
+# model.add(Activation('relu'))
+# model.add(MaxPooling2D(pool_size=(2, 2)))
+#
+# # 2D Conv 3 - None trainable
+# model.add(Conv2D(64, (3, 3), trainable=False))
+# model.add(Activation('relu'))
+# model.add(MaxPooling2D(pool_size=(2, 2)))
+# model.add(Dropout(0.25))
+#
+# # 2D Conv 4 - None trainable
+# model.add(Conv2D(128, (3, 3), trainable=False))
+# model.add(Activation('relu'))
+# model.add(MaxPooling2D(pool_size=(2, 2)))
+# model.add(Dropout(0.25))
+#
+# # Image detecting  Layers - End
+#
+# # Layers for patch training recognition
+# model.add(Flatten())
+# model.add(Dense(1024))
+# model.add(Activation('relu'))
+# model.add(Dropout(0.5))
+# model.add(Dense(num_classes))
+# model.add(Activation('softmax'))
+#
+# # load the weights - From patch training
+# model.load_weights(model_dir + 'patchcnn_Full_arch.h5')
+# # print(model.outputs)
+#
+# # pop last six layers to adjust for heatmap output
+# model.pop()
+# model.pop()
+# model.pop()
+# model.pop()
+# model.pop()
+# model.pop()
+#
+# print (model.layers[-1])
+# #
+# # https://github.com/fchollet/keras/issues/871
+# # FC1
+# model.add(Dense(1024))
+# model.add(Conv2D(512, (3, 3)))
+# model.add(Activation('relu'))
+# # FC2
+# model.add(Dense(1024))
+# model.add(Conv2D(512, (3, 3)))
+# model.add(Activation('relu'))
+#
+# # UpSampling 1
+# model.add(UpSampling2D(size=(2, 2)))
+# model.add(Activation('relu'))
+# model.add(Conv2D(128, (3, 3)))
+#
+# # UpSampling 2
+# model.add(UpSampling2D(size=(2, 2)))
+# model.add(Activation('relu'))
+# model.add(Conv2D(64, (3, 3)))
+# model.add(Activation('relu'))
+#
+# # UpSampling 3
+# model.add(UpSampling2D(size=(2, 2)))
+# model.add(Activation('relu'))
+# model.add(Conv2D(16, (3, 3)))
+# model.add(Activation('relu'))
 
-# 2D Conv 2 - None trainable
-model.add(Conv2D(32, (3, 3), trainable=False))
-model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-
-# 2D Conv 3 - None trainable
-model.add(Conv2D(64, (3, 3), trainable=False))
-model.add(Activation('relu'))
+model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)))
+model.add(Conv2D(32, (3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
-# 2D Conv 4 - None trainable
-model.add(Conv2D(128, (3, 3), trainable=False))
-model.add(Activation('relu'))
+model.add(Conv2D(64, (3, 3), activation='relu'))
+model.add(Conv2D(64, (3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
-# Image detecting  Layers - End
-
-# Layers for patch training recognition
 model.add(Flatten())
-model.add(Dense(1024))
-model.add(Activation('relu'))
+model.add(Dense(256, activation='relu'))
 model.add(Dropout(0.5))
-model.add(Dense(num_classes))
-model.add(Activation('softmax'))
-
-# load the weights - From patch training
-model.load_weights(model_dir + 'patchcnn_Full_arch.h5')
-# print(model.outputs)
-
-# pop last six layers to adjust for heatmap output
-model.pop()
-model.pop()
-model.pop()
-model.pop()
-model.pop()
-model.pop()
-
-print (model.layers[-1])
-
-# https://github.com/fchollet/keras/issues/871
-# FC1
-model.add(Dense(1024))
-model.add(Conv2D(512, (3, 3)))
-model.add(Activation('relu'))
-# FC2
-model.add(Dense(1024))
-model.add(Conv2D(512, (3, 3)))
-model.add(Activation('relu'))
-
-# UpSampling 1
-model.add(UpSampling2D(size=(2, 2)))
-model.add(Activation('relu'))
-model.add(Conv2D(128, (3, 3)))
-
-# UpSampling 2
-model.add(UpSampling2D(size=(2, 2)))
-model.add(Activation('relu'))
-model.add(Conv2D(64, (3, 3)))
-model.add(Activation('relu'))
-
-# UpSampling 3
-model.add(UpSampling2D(size=(2, 2)))
-model.add(Activation('relu'))
-model.add(Conv2D(16, (3, 3)))
-model.add(Activation('relu'))
-
 # # Final Layer
 # https://stats.stackexchange.com/questions/243578/how-to-get-continuous-output-with-convolutional-network-keras
 model.add(Flatten())
