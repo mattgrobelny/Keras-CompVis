@@ -46,7 +46,7 @@ prefix_out = "patch_images_CNN"
 # Hyper parameters
 batch_size = 30
 num_classes = 2
-epochs = 10
+epochs = 4
 
 # Addintial parameters
 img_width = 35
