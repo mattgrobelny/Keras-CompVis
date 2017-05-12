@@ -207,16 +207,16 @@ model.add(Dense(1024))
 model.add(Conv2D(512, (3, 3)))
 model.add(Activation('relu'))
 
-# # UpSampling 1
-# model.add(UpSampling2D(size=(3, 3)))
-# model.add(Activation('relu'))
-# model.add(Conv2D(128, (3, 3)))
-#
-# # UpSampling 2
-# model.add(UpSampling2D(size=(3, 3)))
-# model.add(Activation('relu'))
-# model.add(Conv2D(64, (3, 3)))
-#
+# UpSampling 1
+model.add(UpSampling2D(size=(3, 3)))
+model.add(Activation('relu'))
+model.add(Conv2D(128, (3, 3)))
+
+# UpSampling 2
+model.add(UpSampling2D(size=(3, 3)))
+model.add(Activation('relu'))
+model.add(Conv2D(64, (3, 3)))
+
 # # UpSampling 3
 # model.add(UpSampling2D(size=(3, 3)))
 # model.add(Activation('relu'))
@@ -232,9 +232,10 @@ print('Finished Building Network Architecture')
 
 
 # model compile
-model.compile(loss='sparse_categorical_crossentropy',
+# http://chat.stackexchange.com/rooms/47988/discussion-on-answer-by-hugh-how-to-get-continuous-output-with-convolutional-net
+model.compile(loss='mean_squared_error',
               optimizer='sgd',
-              metrics=['accuracy'])
+              metrics=['mean_absolute_error'])
 
 print("Saving Model Graphic...")
 
