@@ -234,14 +234,14 @@ print('Finished Building Network Architecture')
 learning_rate = 0.1
 decay_rate = learning_rate / epochs
 momentum = 0.8
-sgd = optimizers.SGD(lr=learning_rate, momentum=momentum,
-                     decay=decay_rate, nesterov=False)
+optimizer_fc = optimizers.RMSprop(
+    decay=decay_rate, lr=learning_rate, rho=0.9, epsilon=1e-08)
 ##########################################################################
 
 # model compile
 # http://chat.stackexchange.com/rooms/47988/discussion-on-answer-by-hugh-how-to-get-continuous-output-with-convolutional-net
 model.compile(loss='mean_squared_error',
-              optimizer=sgd,
+              optimizer=optimizer_fc,
               metrics=['mean_absolute_error'])
 
 print("Saving Model Graphic...")
