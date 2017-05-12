@@ -156,18 +156,18 @@ model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
 # 2D Conv 2 - None trainable
-model.add(Conv2D(32, (3, 3), trainable=True))
+model.add(Conv2D(32, (3, 3), trainable=False))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
 # 2D Conv 3 - None trainable
-model.add(Conv2D(64, (3, 3), trainable=True))
+model.add(Conv2D(64, (3, 3), trainable=False))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
 # 2D Conv 4 - None trainable
-model.add(Conv2D(128, (3, 3), trainable=True))
+model.add(Conv2D(128, (3, 3), trainable=False))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
@@ -207,20 +207,20 @@ model.add(Dense(1024))
 model.add(Conv2D(512, (3, 3)))
 model.add(Activation('relu'))
 
-# UpSampling 1
-model.add(UpSampling2D(size=(3, 3)))
-model.add(Activation('relu'))
-model.add(Conv2D(128, (3, 3)))
-
-# UpSampling 2
-model.add(UpSampling2D(size=(3, 3)))
-model.add(Activation('relu'))
-model.add(Conv2D(64, (3, 3)))
-
-# UpSampling 3
-model.add(UpSampling2D(size=(3, 3)))
-model.add(Activation('relu'))
-model.add(Conv2D(32, (3, 3)))
+# # UpSampling 1
+# model.add(UpSampling2D(size=(3, 3)))
+# model.add(Activation('relu'))
+# model.add(Conv2D(128, (3, 3)))
+#
+# # UpSampling 2
+# model.add(UpSampling2D(size=(3, 3)))
+# model.add(Activation('relu'))
+# model.add(Conv2D(64, (3, 3)))
+#
+# # UpSampling 3
+# model.add(UpSampling2D(size=(3, 3)))
+# model.add(Activation('relu'))
+# model.add(Conv2D(32, (3, 3)))
 
 # # Final Layer
 model.add(Flatten())
@@ -230,7 +230,7 @@ print('Finished Building Network Architecture')
 
 
 # model compile
-model.compile(loss='mean_squared_error',
+model.compile(loss='sparse_categorical_crossentropy',
               optimizer='sgd',
               metrics=['accuracy'])
 
