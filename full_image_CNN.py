@@ -156,18 +156,18 @@ model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
 # 2D Conv 2 - None trainable
-model.add(Conv2D(32, (3, 3), trainable=True))
+model.add(Conv2D(32, (3, 3), trainable=False))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
 # 2D Conv 3 - None trainable
-model.add(Conv2D(64, (3, 3), trainable=True))
+model.add(Conv2D(64, (3, 3), trainable=False))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
 # 2D Conv 4 - None trainable
-model.add(Conv2D(128, (3, 3), trainable=True))
+model.add(Conv2D(128, (3, 3), trainable=False))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
@@ -207,16 +207,16 @@ model.add(Dense(1024))
 model.add(Conv2D(512, (3, 3)))
 model.add(Activation('relu'))
 
-# # UpSampling 1
-# model.add(UpSampling2D(size=(2, 2)))
-# model.add(Activation('relu'))
-# model.add(Conv2D(128, (3, 3)))
-#
-# # UpSampling 2
-# model.add(UpSampling2D(size=(2, 2)))
-# model.add(Activation('relu'))
-# model.add(Conv2D(32, (3, 3)))
-# model.add(Activation('relu'))
+# UpSampling 1
+model.add(UpSampling2D(size=(2, 2)))
+model.add(Activation('relu'))
+model.add(Conv2D(128, (3, 3)))
+
+# UpSampling 2
+model.add(UpSampling2D(size=(2, 2)))
+model.add(Activation('relu'))
+model.add(Conv2D(32, (3, 3)))
+model.add(Activation('relu'))
 
 # # Final Layer
 # https://stats.stackexchange.com/questions/243578/how-to-get-continuous-output-with-convolutional-network-keras
@@ -374,9 +374,9 @@ print("Saveing Prediction Report...")
 report_fh.write("Image Dir,Image_name,GroundTruth, P_None_Nuc, P_Nuclei \n")
 for i in range(len(model_predict)):
     image_name = image_list[i].split('/')[-1][0:-4]
-    image_cat = image_name.split('_')[-1]
+    image_cat = int(image_name.split('_')[2].split('C')[1])
     report_fh.write("%s,%s,%s,%s,%s \n" % (image_list[i], image_name, image_cat,
-                                           model_predict[i][0], model_predict[i][1]))
+                                           model_predict[i]))
 print("Done!")
 report_fh.close()
 
@@ -394,8 +394,8 @@ report_fh.write(
     '| :------------- | :------------- |:------------- |:------------- |:------------- | \n')
 for i in range(len(model_predict)):
     image_name = image_list[i].split('/')[-1][0:-4]
-    image_cat = image_name.split('_')[-1]
-    report_fh.write("|![image](%s)|%s|%s|%s|%s| \n" % (image_list[i].split('/')[-1][0:-4], image_name, image_cat,
-                                                       model_predict[i][0], model_predict[i][1]))
+    image_cat = int(image_name.split('_')[2].split('C')[1])
+    report_fh.write("|![image](%s)|%s|%s|%s|%s| \n" % (image_list[i].split('/')[-1], image_name, image_cat,
+                                                       model_predict[i]))
 print("Done!")
 report_fh.close()
