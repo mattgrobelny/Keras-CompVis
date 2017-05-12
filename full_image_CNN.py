@@ -236,7 +236,7 @@ model.add(Dropout(0.25))
 
 model.add(Flatten())
 model.add(Dense(512, activation='relu'))
-model.add(Dense(512, activation='linear'))
+model.add(Dense(100, activation='linear'))
 model.add(Dropout(0.25))
 # # Final Layer
 # https://stats.stackexchange.com/questions/243578/how-to-get-continuous-output-with-convolutional-network-keras
