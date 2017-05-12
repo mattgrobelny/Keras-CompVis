@@ -239,7 +239,7 @@ model.add(Dense(256, activation='relu'))
 model.add(Dropout(0.5))
 # # Final Layer
 # https://stats.stackexchange.com/questions/243578/how-to-get-continuous-output-with-convolutional-network-keras
-model.add(Flatten())
+# model.add(Flatten())
 #model.add(Reshape((-1, 100, 100)))
 model.add(Dense(1))  # 100 real classes
 #model.add(Dense(1, activation="linear", kernel_initializer="uniform"))
