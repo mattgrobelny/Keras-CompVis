@@ -6,6 +6,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten, UpSampling2D, Reshape
 from keras.layers import Conv2D, Conv3D, MaxPooling2D, ZeroPadding2D
 from keras.utils import plot_model
+from keras.optimizers import SGD
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 from PIL import Image
 import numpy as np
