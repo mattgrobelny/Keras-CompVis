@@ -100,17 +100,17 @@ model = Sequential()
 
 # Image detecting  Layers - Start
 # 2D Conv 1 (input layer) - None trainable
-model.add(Conv2D(35, (3, 3), padding='same',
+model.add(Conv2D(1, (3, 3), padding='same',
                  data_format="channels_last",
                  input_shape=input_shape_image,
                  trainable=True))
 model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(3, 3)))
+model.add(MaxPooling2D(pool_size=(2, 2)))
 
 # 2D Conv 2 - None trainable
 model.add(Conv2D(32, (3, 3), trainable=True))
 model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(3, 3)))
+model.add(MaxPooling2D(pool_size=(2, 2)))
 
 # 2D Conv 3 - None trainable
 model.add(Conv2D(64, (3, 3), trainable=True))

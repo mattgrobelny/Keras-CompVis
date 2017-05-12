@@ -148,17 +148,17 @@ model = Sequential()
 
 # Image detecting  Layers - Start
 # 2D Conv 1 (input layer) - None trainable
-model.add(Conv2D(35, (3, 3), padding='same',
+model.add(Conv2D(1, (3, 3), padding='same',
                  data_format="channels_last",
                  input_shape=input_shape_image,
-                 trainable=False))
+                 trainable=True))
 model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(3, 3)))
+model.add(MaxPooling2D(pool_size=(2, 2)))
 
 # 2D Conv 2 - None trainable
 model.add(Conv2D(32, (3, 3), trainable=False))
 model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(3, 3)))
+model.add(MaxPooling2D(pool_size=(2, 2)))
 
 # 2D Conv 3 - None trainable
 model.add(Conv2D(64, (3, 3), trainable=False))
@@ -171,6 +171,7 @@ model.add(Conv2D(128, (3, 3), trainable=False))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
+
 # Image detecting  Layers - End
 
 # Layers for patch training recognition
@@ -182,7 +183,7 @@ model.add(Dense(num_classes))
 model.add(Activation('softmax'))
 
 # load the weights - From patch training
-model.load_weights(model_dir + 'patch_images_CNN.h5')
+model.load_weights(model_dir + 'patchcnn_Full_arch.h5')
 # print(model.outputs)
 
 # pop last six layers to adjust for heatmap output
