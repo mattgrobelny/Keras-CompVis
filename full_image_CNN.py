@@ -224,21 +224,27 @@ model = Sequential()
 # model.add(Conv2D(16, (3, 3)))
 # model.add(Activation('relu'))
 
-model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)))
-model.add(Conv2D(32, (3, 3), activation='relu'))
+
+model.add(Conv2D(35, (3, 3), padding='same',
+                 data_format="channels_last",
+                 input_shape=input_shape_image))
+model.add(Activation('relu'))
+model.add(Conv2D(35, (3, 3)))
+model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
-model.add(Conv2D(64, (3, 3), activation='relu'))
-model.add(Conv2D(64, (3, 3), activation='relu'))
+model.add(Conv2D(70, (3, 3), padding='same'))
+model.add(Activation('relu'))
+model.add(Conv2D(70, (3, 3)))
+model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
 model.add(Flatten())
-model.add(Dense(512, activation='relu'))
-model.add(Dense(100, activation='linear'))
-model.add(Dropout(0.25))
-# # Final Layer
+model.add(Dense(560))
+model.add(Activation('relu'))
+model.add(Dropout(0.5))
 # https://stats.stackexchange.com/questions/243578/how-to-get-continuous-output-with-convolutional-network-keras
 # model.add(Flatten())
 #model.add(Reshape((-1, 100, 100)))
