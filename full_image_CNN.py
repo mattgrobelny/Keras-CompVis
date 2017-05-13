@@ -225,18 +225,18 @@ model = Sequential()
 # model.add(Activation('relu'))
 
 
-model.add(Conv2D(35, (3, 3), padding='same',
+model.add(Conv2D(35, (1, 1), padding='same',
                  data_format="channels_last",
                  input_shape=input_shape_image))
 model.add(Activation('relu'))
-model.add(Conv2D(35, (3, 3)))
+model.add(Conv2D(35, (1, 1)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
 
-model.add(Conv2D(70, (3, 3), padding='same'))
+model.add(Conv2D(70, (1, 1), padding='same'))
 model.add(Activation('relu'))
-model.add(Conv2D(70, (3, 3)))
+model.add(Conv2D(70, (1, 1)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.25))
@@ -248,10 +248,14 @@ model.add(Dropout(0.5))
 model.add(Dense(560))
 model.add(Activation('relu'))
 model.add(Dropout(0.5))
-model.add(Reshape((-1, 100, 100)))
-model.add(Conv2D(100, (3, 3)))
+model.add(UpSampling2D(size=(2, 2)))
 model.add(Activation('relu'))
-
+model.add(Conv2D(16, (3, 3)))
+model.add(Activation('relu'))
+model.add(UpSampling2D(size=(2, 2)))
+model.add(Activation('relu'))
+model.add(Conv2D(16, (3, 3)))
+model.add(Activation('relu'))
 # https://stats.stackexchange.com/questions/243578/how-to-get-continuous-output-with-convolutional-network-keras
 # model.add(Flatten())
 #model.add(Reshape((-1, 100, 100)))
