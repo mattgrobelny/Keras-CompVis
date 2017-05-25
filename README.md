@@ -81,4 +81,4 @@ https://github.com/fchollet/keras/blob/master/examples/cifar10_cnn.py
 2. Create patches of cells and none cell regions from annotate cell locations `patch_prep.py`
 
 ## Joke
-[image](https://imgs.xkcd.com/comics/machine_learning.png)
+![xkcd](https://imgs.xkcd.com/comics/machine_learning.png)
